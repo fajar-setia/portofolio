@@ -23,6 +23,8 @@ import Tools2 from "../assets/tools/tools2.svg"; // Adjust the path as necessary
 import Tools3 from "../assets/tools/tools3.svg"; // Adjust the path as necessary
 import Tools4 from "../assets/tools/tools4.svg"; // Adjust the path as necessary
 
+import Foto from "../../public/foto_aku_3.jpg"; // Adjust the path as necessary
+
 export default function Beranda() {
   const [loading, setLoading] = useState(true);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -186,7 +188,7 @@ export default function Beranda() {
               <div className="absolute w-52 h-52 sm:w-64 sm:h-64 md:w-80 md:h-80 bg-green-500/20 blur-3xl rounded-full"></div>
               {/* Foto profil */}
               <img
-                src="/foto_aku_3.jpg"
+                src={Foto}
                 alt="fajar setia pambudi"
                 className="relative z-10 w-40 h-40 sm:w-56 sm:h-56 md:w-115 md:h-115 object-cover rounded-full border-2 border-green-800 shadow-2xl hover:scale-105 hover:shadow-green-400/60 transition-all duration-500 ease-out"
                 loading="lazy"

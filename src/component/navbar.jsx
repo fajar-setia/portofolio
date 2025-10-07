@@ -1,5 +1,6 @@
 import React from "react";
 import { Menu, X, Home, User, Briefcase, Mail } from "lucide-react";
+import logo from "../../public/logo.png"; // Adjust the path as necessary
 
 function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -35,7 +36,7 @@ function Navbar() {
               <div className="flex-shrink-0">
                 <a href="#" className="text-xl font-bold text-white">
                   {/* public assets should be referenced with absolute path (/) when in /public */}
-                  <img src="/logo.png" alt="Logo" className="h-18 w-25" />
+                  <img src={logo} alt="Logo" className="h-18 w-25" />
                 </a>
               </div>
 
