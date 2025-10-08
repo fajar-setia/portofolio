@@ -22,6 +22,8 @@ import Tools1 from "../assets/tools/tools1.svg"; // Adjust the path as necessary
 import Tools2 from "../assets/tools/tools2.svg"; // Adjust the path as necessary
 import Tools3 from "../assets/tools/tools3.svg"; // Adjust the path as necessary
 import Tools4 from "../assets/tools/tools4.svg"; // Adjust the path as necessary
+import HTML from "../assets/tools/html.svg"; // Adjust the path as necessary
+import CSS from "../assets/tools/css.svg";
 
 import Foto from "../../public/foto_aku_3.jpg"; // Adjust the path as necessary
 
@@ -79,30 +81,30 @@ export default function Beranda() {
   ];
 
   const socialLinks = [
-    { 
-      icon: Github, 
-      href: "#", 
-      label: "GitHub" 
+    {
+      icon: Github,
+      href: "#",
+      label: "GitHub",
     },
-    { 
-      icon: Linkedin, 
-      href: "#", 
-      label: "LinkedIn" 
+    {
+      icon: Linkedin,
+      href: "#",
+      label: "LinkedIn",
     },
-    { 
-      icon: Mail, 
-      href: "#", 
-      label: "Email" 
+    {
+      icon: Mail,
+      href: "#",
+      label: "Email",
     },
-    { 
-      icon: Instagram, 
-      href: "#", 
-      label: "Instagram" 
+    {
+      icon: Instagram,
+      href: "#",
+      label: "Instagram",
     },
-    { 
-      icon: Facebook, 
-      href: "#", 
-      label: "Facebook" 
+    {
+      icon: Facebook,
+      href: "#",
+      label: "Facebook",
     },
   ];
 
@@ -138,13 +140,13 @@ export default function Beranda() {
             >
               <h4 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-white leading-tight">
                 Hi, I'm{" "}
-                <span className="bg-gradient-to-r from-green-400 via-green-500 to-yellow-400 text-transparent bg-clip-text animate-pulse">
+                <span className="bg-gradient-to-r from-green-400 via-green-500 to-zinc-200 text-transparent bg-clip-text animate-pulse">
                   fajar setia pambudi
                 </span>
               </h4>
 
               <p className="text-lg sm:text-xl lg:text-2xl text-gray-200 max-w-2xl">
-                Full Stack Developer & Creative Designer
+                Junior Developer
               </p>
 
               <p className="text-sm sm:text-base lg:text-lg text-gray-400 max-w-xl leading-relaxed">
@@ -223,54 +225,125 @@ export default function Beranda() {
             <div className="w-20 h-1 bg-gradient-to-r from-green-400 to-green-500 mx-auto rounded-full"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-            <div className="space-y-6">
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300">
-                <h3 className="text-xl sm:text-2xl font-semibold text-white mb-4 flex items-center gap-3">
-                  <Code className="w-6 h-6 text-green-400" />
-                  My Journey
-                </h3>
-                <p className="text-gray-300 leading-relaxed">
-                  As a passionate Full Stack Developer, I transform ideas into
-                  elegant digital solutions. With years of experience in modern
-                  web technologies, I specialize in creating responsive,
-                  user-friendly applications that deliver exceptional user
-                  experiences.
-                </p>
-              </div>
-
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300">
-                <h3 className="text-xl sm:text-2xl font-semibold text-white mb-4 flex items-center gap-3">
-                  <Rocket className="w-6 h-6 text-green-400" />
-                  What I Do
-                </h3>
-                <p className="text-gray-300 leading-relaxed">
-                  I build scalable web applications, design intuitive user
-                  interfaces, and implement robust backend systems. My approach
-                  combines technical excellence with creative problem-solving to
-                  deliver products that exceed expectations.
-                </p>
-              </div>
+          {/* Roadmap Timeline */}
+          <div className="relative max-w-5xl mx-auto">
+            {/* Winding Path Line */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-1 -translate-x-1/2 hidden md:block">
+              <div className="absolute inset-0 bg-gradient-to-b from-green-500/20 via-green-400/40 to-green-500/20"></div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 sm:gap-6">
-              {[
-                { number: "50+", label: "Projects Completed", icon: Briefcase },
-                { number: "30+", label: "Happy Clients", icon: Award },
-                { number: "5+", label: "Years Experience", icon: Code },
-                { number: "100%", label: "Satisfaction Rate", icon: Rocket },
-              ].map((stat, index) => (
-                <div
-                  key={index}
-                  className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:scale-105 transition-all duration-300 text-center"
-                >
-                  <stat.icon className="w-8 h-8 text-green-400 mx-auto mb-3" />
-                  <h4 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-                    {stat.number}
-                  </h4>
-                  <p className="text-sm text-gray-400">{stat.label}</p>
+            {/* Roadmap Items */}
+            <div className="space-y-12 md:space-y-24">
+              {/* Start Point */}
+              <div className="relative flex items-center justify-center">
+                <div className="bg-gradient-to-r from-green-600 to-green-500 p-4 rounded-full shadow-lg shadow-green-500/50">
+                  <Rocket className="w-8 h-8 text-white" />
                 </div>
-              ))}
+              </div>
+
+              {/* Journey Item 1 - Left */}
+              <div className="relative grid md:grid-cols-2 gap-8 items-center">
+                <div className="md:text-right order-2 md:order-1">
+                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300 hover:scale-105">
+                    <div className="flex items-center gap-3 justify-center md:justify-end mb-4">
+                      <h3 className="text-xl sm:text-2xl font-semibold text-white">
+                        The Beginning
+                      </h3>
+                      <Code className="w-6 h-6 text-green-400" />
+                    </div>
+                    <p className="text-gray-300 leading-relaxed">
+                      awal perjalanan saya di dunia pengembangan web dimulai
+                      dengan belajar HTML, CSS, dan JavaScript. Saya membuat
+                      proyek-proyek kecil untuk memahami dasar-dasar
+                      pengembangan web.
+                    </p>
+                    <div className="mt-4 flex justify-center md:justify-end gap-2">
+                      <span className="flex items-center px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400">
+                        <span className="icon w-5 h-5">
+                          <img src={HTML} alt="image" />
+                        </span>
+                        <span className="text">
+                          HTML
+                        </span>
+                      </span>
+                      <span className="flex items-center px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400">
+                        <span className="icon w-5 h-5">
+                          <img src={CSS} alt="image" />
+                        </span>
+                        <span className="text">
+                          CSS
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="order-1 md:order-2 flex justify-center md:justify-start">
+                  <div className="w-4 h-4 bg-green-500 rounded-full shadow-lg shadow-green-500/50 ring-4 ring-green-500/20"></div>
+                </div>
+              </div>
+
+              {/* Journey Item 2 - Right */}
+              <div className="relative grid md:grid-cols-2 gap-8 items-center">
+                <div className="flex justify-center md:justify-end">
+                  <div className="w-4 h-4 bg-green-400 rounded-full shadow-lg shadow-green-400/50 ring-4 ring-green-400/20"></div>
+                </div>
+                <div>
+                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300 hover:scale-105">
+                    <div className="flex items-center gap-3 mb-4">
+                      <Briefcase className="w-6 h-6 text-green-400" />
+                      <h3 className="text-xl sm:text-2xl font-semibold text-white">
+                        Professional Growth
+                      </h3>
+                    </div>
+                    <p className="text-gray-300 leading-relaxed">
+                      Worked on 50+ projects with 30+ happy clients, mastering
+                      modern technologies and delivering exceptional user
+                      experiences.
+                    </p>
+                    <div className="mt-4 flex gap-2 flex-wrap">
+                      <span className="px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400">
+                        React
+                      </span>
+                      <span className="px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400">
+                        Node.js
+                      </span>
+                      <span className="px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400">
+                        Python
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Journey Item 3 - Left */}
+              <div className="relative grid md:grid-cols-2 gap-8 items-center">
+                <div className="md:text-right order-2 md:order-1">
+                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300 hover:scale-105">
+                    <div className="flex items-center gap-3 justify-center md:justify-end mb-4">
+                      <h3 className="text-xl sm:text-2xl font-semibold text-white">
+                        Expertise Mastery
+                      </h3>
+                      <Award className="w-6 h-6 text-green-400" />
+                    </div>
+                    <p className="text-gray-300 leading-relaxed">
+                      Built scalable applications, designed intuitive
+                      interfaces, and implemented robust backend systems with
+                      100% client satisfaction.
+                    </p>
+                    <div className="mt-4 flex justify-center md:justify-end gap-2 flex-wrap">
+                      <span className="px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400">
+                        Full Stack
+                      </span>
+                      <span className="px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400">
+                        UI/UX
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="order-1 md:order-2 flex justify-center md:justify-start">
+                  <div className="w-4 h-4 bg-yellow-400 rounded-full shadow-lg shadow-yellow-400/50 ring-4 ring-yellow-400/20"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
