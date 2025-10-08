@@ -1,6 +1,7 @@
 import { useState, useEffect, use } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css"; // Import AOS styles
+import { motion } from "framer-motion";
 import {
   Github,
   Linkedin,
@@ -16,6 +17,7 @@ import {
   Phone,
   MapPin,
   Send,
+  Sparkles,
 } from "lucide-react";
 
 import Tools1 from "../assets/tools/tools1.svg"; // Adjust the path as necessary
@@ -28,7 +30,6 @@ import CSS from "../assets/tools/css.svg";
 import Foto from "../../public/foto_aku_3.jpg"; // Adjust the path as necessary
 
 export default function Beranda() {
-  const [loading, setLoading] = useState(true);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -37,11 +38,6 @@ export default function Beranda() {
       once: true, // Animation only happens once
       offset: 120, // Start animation when element is 100px from viewport
     });
-  }, []);
-
-  useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 300);
-    return () => clearTimeout(t);
   }, []);
 
   useEffect(() => {
@@ -108,16 +104,20 @@ export default function Beranda() {
     },
   ];
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-gray-400 text-sm">Loading...</p>
-        </div>
-      </div>
-    );
-  }
+  //framer motion variants
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+  const item = {
+    hidden: { opacity: 0, y: 30 },
+    show: { opacity: 1, y: 0, transition: { type: "spring", duration: 3.0 } },
+  };
 
   return (
     <div className="min-h-screen bg-black overflow-hidden relative">
@@ -134,38 +134,70 @@ export default function Beranda() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-center py-8">
             {/* Left Side - Content */}
-            <div
-              data-aos="fade-right"
+            <motion.div
+              variants={container}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.5 }}
+              animate="show"
               className="flex flex-col items-center md:items-start text-center md:text-left space-y-6 order-2 md:order-1"
             >
-              <h4 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-white leading-tight">
+              <motion.h4
+                variants={item}
+                className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-white leading-tight"
+              >
                 Hi, I'm{" "}
                 <span className="bg-gradient-to-r from-green-400 via-green-500 to-zinc-200 text-transparent bg-clip-text animate-pulse">
                   fajar setia pambudi
                 </span>
-              </h4>
+              </motion.h4>
 
-              <p className="text-lg sm:text-xl lg:text-2xl text-gray-200 max-w-2xl">
+              <motion.p
+                variants={item}
+                className="text-lg sm:text-xl lg:text-2xl text-gray-200 max-w-2xl"
+              >
                 Junior Developer
-              </p>
+              </motion.p>
 
-              <p className="text-sm sm:text-base lg:text-lg text-gray-400 max-w-xl leading-relaxed">
+              <motion.p
+                variants={item}
+                className="text-sm sm:text-base lg:text-lg text-gray-400 max-w-xl leading-relaxed"
+              >
                 I craft beautiful digital experiences with clean code and
                 elegant design. Passionate about building products that make a
                 difference.
-              </p>
+              </motion.p>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto pt-4">
-                <button className="group bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-green-500/40 hover:shadow-xl hover:shadow-green-500/60 hover:scale-105 w-full sm:w-auto">
+              <motion.div
+                variants={item}
+                className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto pt-4"
+              >
+                <motion.button
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: "0 0 25px rgba(34,197,94,0.5)",
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 200 }}
+                  className="group bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-green-500/40 hover:shadow-xl hover:shadow-green-500/60 hover:scale-105 w-full sm:w-auto"
+                >
                   View My Work
                   <Rocket className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
-                </button>
-                <button className="bg-white/10 hover:bg-white/20 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 backdrop-blur-sm border border-white/10 hover:border-white/20 w-full sm:w-auto">
+                </motion.button>
+                <motion.button
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: "0 0 25px rgba(34,197,94,0.5)",
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 200 }}
+                  className="bg-white/10 hover:bg-white/20 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 backdrop-blur-sm border border-white/10 hover:border-white/20 w-full sm:w-auto"
+                >
                   Download CV
                   <Download className="w-4 h-4 sm:w-5 sm:h-5" />
-                </button>
-              </div>
+                </motion.button>
+              </motion.div>
 
               {/* Social Links */}
               <div className="flex gap-3 sm:gap-4 justify-center md:justify-start pt-4">
@@ -180,7 +212,7 @@ export default function Beranda() {
                   </a>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
             {/* Right Side - Image */}
             <div
@@ -262,17 +294,13 @@ export default function Beranda() {
                         <span className="icon w-5 h-5">
                           <img src={HTML} alt="image" />
                         </span>
-                        <span className="text">
-                          HTML
-                        </span>
+                        <span className="text">HTML</span>
                       </span>
                       <span className="flex items-center px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400">
                         <span className="icon w-5 h-5">
                           <img src={CSS} alt="image" />
                         </span>
-                        <span className="text">
-                          CSS
-                        </span>
+                        <span className="text">CSS</span>
                       </span>
                     </div>
                   </div>
