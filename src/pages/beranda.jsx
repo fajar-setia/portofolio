@@ -79,27 +79,27 @@ export default function Beranda() {
   const socialLinks = [
     {
       icon: Github,
-      href: "#",
+      href: "https://github.com/fajar-setia",
       label: "GitHub",
     },
     {
       icon: Linkedin,
-      href: "#",
+      href: "https://www.linkedin.com/in/setia72/",
       label: "LinkedIn",
     },
     {
       icon: Mail,
-      href: "#",
+      href: "fajarsetiapambudi@gmail.com",
       label: "Email",
     },
     {
       icon: Instagram,
-      href: "#",
+      href: "https://www.instagram.com/fajarpambudiii_/?next=%2Ffajarpambudiii_%2F",
       label: "Instagram",
     },
     {
       icon: Facebook,
-      href: "#",
+      href: "https://web.facebook.com/fajar.setia.3998263",
       label: "Facebook",
     },
   ];
@@ -206,6 +206,7 @@ export default function Beranda() {
                     key={index}
                     href={social.href}
                     aria-label={social.label}
+                    target="_blank"
                     className="bg-white/5 hover:bg-white/10 p-3 sm:p-4 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/10 hover:border-white/20 hover:scale-110 group"
                   >
                     <social.icon className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400 group-hover:text-green-400 transition-colors" />
