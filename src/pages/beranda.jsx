@@ -2,6 +2,7 @@ import { useState, useEffect, use } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css"; // Import AOS styles
 import { motion } from "framer-motion";
+import { useForm, ValidationError } from "@formspree/react";
 import {
   Github,
   Linkedin,
@@ -18,10 +19,11 @@ import {
   MapPin,
   Send,
   Sparkles,
+  ListIcon,
 } from "lucide-react";
 
 import CVfile from "../../public/cv/CV.pdf"; // Adjust the path as necessary
-import CVPreview from "../assets/cv/fajar-setia-pambudi.png"
+import CVPreview from "../assets/cv/fajar-setia-pambudi.png";
 
 import Tools1 from "../assets/tools/tools1.svg"; // Adjust the path as necessary
 import Tools2 from "../assets/tools/tools2.svg"; // Adjust the path as necessary
@@ -29,9 +31,14 @@ import Tools3 from "../assets/tools/tools3.svg"; // Adjust the path as necessary
 import Tools4 from "../assets/tools/tools4.svg"; // Adjust the path as necessary
 import HTML from "../assets/tools/html.svg"; // Adjust the path as necessary
 import CSS from "../assets/tools/css.svg";
+import PHP from "../assets/tools/php.svg";
+import MYSQL from "../assets/tools/MYSQL.svg";
+import POSTGRES from "../assets/tools/POSTGRES.svg";
+import GIT from "../assets/tools/git.svg";
+import GITHUB from "../assets/tools/github.svg";
+import NODE from "../assets/tools/node.svg";
 
 import Foto from "../../public/foto_aku_3.jpg"; // Adjust the path as necessary
-import { div } from "framer-motion/client";
 
 function CV({ showCV, setShowCV }) {
   if (!showCV) return null;
@@ -88,6 +95,201 @@ function CV({ showCV, setShowCV }) {
   );
 }
 
+function ContactForm() {
+  const [state, handleSubmit] = useForm("mjkaaayv");
+  if (state.succeeded) {
+    return <p className="text-green-400">Thanks for joining!</p>;
+  }
+  return (
+    <div className="max-w-7xl mx-auto">
+      <div className="text-center mb-12 sm:mb-16">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+          Get In{" "}
+          <span className="bg-gradient-to-r from-green-400 to-green-500 text-transparent bg-clip-text">
+            Touch
+          </span>
+        </h2>
+        <div className="w-20 h-1 bg-gradient-to-r from-green-400 to-green-500 mx-auto rounded-full mb-4"></div>
+        <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          Have a project in mind? Let's work together to create something
+          amazing!
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+        {/* Contact Form */}
+        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8">
+          <h3 className="text-2xl font-semibold text-white mb-6">
+            Send Message
+          </h3>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* nama */}
+            <div>
+              <label className="block text-gray-300 mb-2 text-sm font-medium">
+                Your Name
+              </label>
+              <input
+                id="name"
+                type="text"
+                name="name"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-green-400 transition-colors"
+                placeholder="type your name"
+              />
+              <ValidationError
+                prefix="Name"
+                field="name"
+                errors={state.errors}
+              />
+            </div>
+            {/* email */}
+            <div>
+              <label
+                htmlFor="Email"
+                className="block text-gray-300 mb-2 text-sm font-medium"
+              >
+                Email Address
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-green-400 transition-colors"
+                placeholder="@example.com"
+              />
+              <ValidationError
+                prefix="Email"
+                field="email"
+                errors={state.errors}
+              />
+            </div>
+            {/* subject */}
+            <div>
+              <label className="block text-gray-300 mb-2 text-sm font-medium">
+                Subject
+              </label>
+              <input
+                id="subject"
+                name="subject"
+                type="text"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-green-400 transition-colors"
+                placeholder="Project Discussion"
+              />
+              <ValidationError
+                prefix="Subject"
+                field="subject"
+                errors={state.errors}
+              />
+            </div>
+            {/* message */}
+            <div>
+              <label className="block text-gray-300 mb-2 text-sm font-medium">
+                Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows={5}
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-green-400 transition-colors resize-none"
+                placeholder="Tell me about your project..."
+              />
+              <ValidationError
+                prefix="Message"
+                field="message"
+                errors={state.errors}
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={state.submitting}
+              className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-8 py-4 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-green-500/40 hover:shadow-xl hover:shadow-green-500/60 hover:scale-105"
+            >
+              Send Message
+              <Send className="w-5 h-5" />
+            </button>
+          </form>
+        </div>
+
+        {/* Contact Info */}
+        <div className="space-y-6">
+          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300">
+            <h3 className="text-2xl font-semibold text-white mb-6">
+              Contact Information
+            </h3>
+            <div className="space-y-6">
+              <div className="flex items-start gap-4">
+                <div className="bg-green-500/20 p-3 rounded-xl">
+                  <Mail className="w-6 h-6 text-green-400" />
+                </div>
+                <div>
+                  <h4 className="text-white font-medium mb-1">Email</h4>
+                  <p className="text-gray-400">fajarsetiapambudi@gmail.com</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="bg-green-500/20 p-3 rounded-xl">
+                  <Phone className="w-6 h-6 text-green-400" />
+                </div>
+                <div>
+                  <h4 className="text-white font-medium mb-1">Phone</h4>
+                  <p className="text-gray-400">+62883595329 (WA)</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="bg-green-500/20 p-3 rounded-xl">
+                  <MapPin className="w-6 h-6 text-green-400" />
+                </div>
+                <div>
+                  <h4 className="text-white font-medium mb-1">Location</h4>
+                  <p className="text-gray-400">indonesia</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300">
+            <h3 className="text-xl font-semibold text-white mb-4">Follow Me</h3>
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                {
+                  icon: Github,
+                  label: "GitHub",
+                  color: "hover:bg-gray-700",
+                },
+                {
+                  icon: Linkedin,
+                  label: "LinkedIn",
+                  color: "hover:bg-blue-700",
+                },
+                {
+                  icon: Instagram,
+                  label: "Instagram",
+                  color: "hover:bg-pink-700",
+                },
+                {
+                  icon: Facebook,
+                  label: "Facebook",
+                  color: "hover:bg-blue-600",
+                },
+              ].map((social, index) => (
+                <a
+                  key={index}
+                  href="#"
+                  className={`flex items-center gap-2 bg-white/5 ${social.color} p-3 rounded-xl transition-all duration-300 group`}
+                >
+                  <social.icon className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
+                  <span className="text-sm text-gray-400 group-hover:text-white transition-colors">
+                    {social.label}
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Beranda() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showCV, setShowCV] = useState(false);
@@ -108,8 +310,7 @@ export default function Beranda() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  //item icons
-  const listIcon = [
+  const listIconPro = [
     {
       id: 1,
       gambar: Tools1,
@@ -134,6 +335,111 @@ export default function Beranda() {
       nama: "C sharp",
       ket: "language",
     },
+    {
+      id: 5,
+      gambar: HTML,
+      nama: "HTML",
+      ket: "markup language",
+    },
+    {
+      id: 6,
+      gambar: CSS,
+      nama: "CSS",
+      ket: "style sheet language",
+    },
+    {
+      id: 7,
+      gambar: PHP,
+      nama: "PHP",
+      ket: "language",
+    },
+    {
+      id: 8,
+      gambar: MYSQL,
+      nama: "MySQL",
+      ket: "database",
+    },
+    {
+      id: 9,
+      gambar: POSTGRES,
+      nama: "PostgreSQL",
+      ket: "database",
+    },
+  ];
+
+  const listIconTech = [
+    {
+      id: 1,
+      gambar: Tools1,
+      nama: "JavaScript",
+      ket: "language",
+    },
+    {
+      id: 2,
+      gambar: Tools2,
+      nama: "React",
+      ket: "framework Js",
+    },
+    {
+      id: 3,
+      gambar: Tools3,
+      nama: "tailwindcss",
+      ket: "CSS Framework",
+    },
+    {
+      id: 4,
+      gambar: Tools4,
+      nama: "C sharp",
+      ket: "language",
+    },
+    {
+      id: 5,
+      gambar: HTML,
+      nama: "HTML",
+      ket: "markup language",
+    },
+    {
+      id: 6,
+      gambar: CSS,
+      nama: "CSS",
+      ket: "style sheet language",
+    },
+    {
+      id: 7,
+      gambar: PHP,
+      nama: "PHP",
+      ket: "language",
+    },
+    {
+      id: 8,
+      gambar: MYSQL,
+      nama: "MySQL",
+      ket: "database",
+    },
+    {
+      id: 9,
+      gambar: POSTGRES,
+      nama: "PostgreSQL",
+      ket: "database",
+    },
+    {
+      id: 10,
+      gambar: GIT,
+      nama: "Git",
+      ket: "version control",
+    },
+    {
+      id: 11,
+      gambar: GITHUB,
+      nama: "GitHub",
+      ket: "repository hosting",
+    },
+    {
+      id: 12,
+      gambar: NODE,
+      nama: "Node.js",
+      ket: "runtime environment",
+    },
   ];
 
   const socialLinks = [
@@ -149,7 +455,7 @@ export default function Beranda() {
     },
     {
       icon: Mail,
-      href: "fajarsetiapambudi@gmail.com",
+      href: "#contact",
       label: "Email",
     },
     {
@@ -229,7 +535,10 @@ export default function Beranda() {
       />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20">
+      <section
+        id="home"
+        className="relative min-h-screen px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20"
+      >
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-center py-8">
             {/* Left Side - Content */}
@@ -306,7 +615,7 @@ export default function Beranda() {
                     key={index}
                     href={social.href}
                     aria-label={social.label}
-                    target="_blank"
+                    target={social.label === "Email" ? "_self" : "_blank"}
                     className="bg-white/5 hover:bg-white/10 p-3 sm:p-4 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/10 hover:border-white/20 hover:scale-110 group"
                   >
                     <social.icon className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400 group-hover:text-green-400 transition-colors" />
@@ -410,6 +719,12 @@ export default function Beranda() {
                         </span>
                         <span className="text">CSS</span>
                       </span>
+                      <span className="flex items-center px-3 gap-1 py-1 bg-green-500/20 rounded-full text-xs text-green-400">
+                        <span className="icon w-5 h-5">
+                          <img src={Tools1} alt="image" />
+                        </span>
+                        <span className="text">Java Script</span>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -432,20 +747,25 @@ export default function Beranda() {
                       </h3>
                     </div>
                     <p className="text-gray-300 leading-relaxed">
-                      Worked on 50+ projects with 30+ happy clients, mastering
-                      modern technologies and delivering exceptional user
-                      experiences.
+                      Saya pernah mengerjakan project e-commerce perkebunan pada
+                      mata kuliah MPTI menggunakan HTML, CSS, Bootstrap,
+                      JavaScript, PHP, dan MySQL. Selain itu, saya juga membuat
+                      project mandiri berupa website kosan dengan React.js dan
+                      Tailwind CSS di bagian frontend, C# sebagai backend, serta
+                      PostgreSQL untuk database.
                     </p>
                     <div className="mt-4 flex gap-2 flex-wrap">
-                      <span className="px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400">
-                        React
-                      </span>
-                      <span className="px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400">
-                        Node.js
-                      </span>
-                      <span className="px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400">
-                        Python
-                      </span>
+                      {listIconPro.map((item) => (
+                        <span
+                          key={item.id}
+                          className="flex items-center px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400"
+                        >
+                          <span className="icon w-5 h-5">
+                            <img src={item.gambar} alt="image" />
+                          </span>
+                          <span className="text">{item.nama}</span>
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -457,22 +777,33 @@ export default function Beranda() {
                   <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300 hover:scale-105">
                     <div className="flex items-center gap-3 justify-center md:justify-end mb-4">
                       <h3 className="text-xl sm:text-2xl font-semibold text-white">
-                        Expertise Mastery
+                        Technical Skills
                       </h3>
                       <Award className="w-6 h-6 text-green-400" />
                     </div>
                     <p className="text-gray-300 leading-relaxed">
-                      Built scalable applications, designed intuitive
-                      interfaces, and implemented robust backend systems with
-                      100% client satisfaction.
+                      Berfokus pada pengembangan web di sisi frontend dan
+                      backend. Pada bagian frontend, menggunakan React.js,
+                      Tailwind CSS, HTML, CSS, JavaScript, serta Bootstrap untuk
+                      membangun tampilan yang responsif dan modern. Untuk
+                      backend, berpengalaman dengan PHP dan C# (ASP.NET Core)
+                      menggunakan basis data MySQL dan PostgreSQL. Juga terbiasa
+                      menggunakan Git dan GitHub untuk version control, serta
+                      memahami konsep API dan autentikasi JWT dalam pengembangan
+                      aplikasi web.
                     </p>
                     <div className="mt-4 flex justify-center md:justify-end gap-2 flex-wrap">
-                      <span className="px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400">
-                        Full Stack
-                      </span>
-                      <span className="px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400">
-                        UI/UX
-                      </span>
+                      {listIconTech.map((item) => (
+                        <span
+                          key={item.id}
+                          className="flex items-center px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400"
+                        >
+                          <span className="icon w-5 h-5">
+                            <img src={item.gambar} alt="image" />
+                          </span>
+                          <span className="text">{item.nama}</span>
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -500,12 +831,11 @@ export default function Beranda() {
             </h2>
             <div className="w-20 h-1 bg-gradient-to-r from-green-400 to-green-500 mx-auto"></div>
           </div>
-
           <div
             data-aos="fade-out"
             className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-4"
           >
-            {listIcon.map((item) => (
+            {listIconTech.map((item) => (
               <div
                 key={item.id}
                 className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300 flex items-center justify-center-safe gap-10 "
@@ -533,160 +863,7 @@ export default function Beranda() {
         id="contact"
         className="relative px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-24"
       >
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
-              Get In{" "}
-              <span className="bg-gradient-to-r from-green-400 to-green-500 text-transparent bg-clip-text">
-                Touch
-              </span>
-            </h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-green-400 to-green-500 mx-auto rounded-full mb-4"></div>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Have a project in mind? Let's work together to create something
-              amazing!
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-            {/* Contact Form */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8">
-              <h3 className="text-2xl font-semibold text-white mb-6">
-                Send Message
-              </h3>
-              <form className="space-y-6">
-                <div>
-                  <label className="block text-gray-300 mb-2 text-sm font-medium">
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-green-400 transition-colors"
-                    placeholder="type your name"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-300 mb-2 text-sm font-medium">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-green-400 transition-colors"
-                    placeholder="@example.com"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-300 mb-2 text-sm font-medium">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-green-400 transition-colors"
-                    placeholder="Project Discussion"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-300 mb-2 text-sm font-medium">
-                    Message
-                  </label>
-                  <textarea
-                    rows={5}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-green-400 transition-colors resize-none"
-                    placeholder="Tell me about your project..."
-                  ></textarea>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-8 py-4 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-green-500/40 hover:shadow-xl hover:shadow-green-500/60 hover:scale-105"
-                >
-                  Send Message
-                  <Send className="w-5 h-5" />
-                </button>
-              </form>
-            </div>
-
-            {/* Contact Info */}
-            <div className="space-y-6">
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300">
-                <h3 className="text-2xl font-semibold text-white mb-6">
-                  Contact Information
-                </h3>
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="bg-green-500/20 p-3 rounded-xl">
-                      <Mail className="w-6 h-6 text-green-400" />
-                    </div>
-                    <div>
-                      <h4 className="text-white font-medium mb-1">Email</h4>
-                      <p className="text-gray-400">
-                        fajarsetiapambudi@gmail.com
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="bg-green-500/20 p-3 rounded-xl">
-                      <Phone className="w-6 h-6 text-green-400" />
-                    </div>
-                    <div>
-                      <h4 className="text-white font-medium mb-1">Phone</h4>
-                      <p className="text-gray-400">+62883595329 (WA)</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="bg-green-500/20 p-3 rounded-xl">
-                      <MapPin className="w-6 h-6 text-green-400" />
-                    </div>
-                    <div>
-                      <h4 className="text-white font-medium mb-1">Location</h4>
-                      <p className="text-gray-400">indonesia</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300">
-                <h3 className="text-xl font-semibold text-white mb-4">
-                  Follow Me
-                </h3>
-                <div className="grid grid-cols-2 gap-3">
-                  {[
-                    {
-                      icon: Github,
-                      label: "GitHub",
-                      color: "hover:bg-gray-700",
-                    },
-                    {
-                      icon: Linkedin,
-                      label: "LinkedIn",
-                      color: "hover:bg-blue-700",
-                    },
-                    {
-                      icon: Instagram,
-                      label: "Instagram",
-                      color: "hover:bg-pink-700",
-                    },
-                    {
-                      icon: Facebook,
-                      label: "Facebook",
-                      color: "hover:bg-blue-600",
-                    },
-                  ].map((social, index) => (
-                    <a
-                      key={index}
-                      href="#"
-                      className={`flex items-center gap-2 bg-white/5 ${social.color} p-3 rounded-xl transition-all duration-300 group`}
-                    >
-                      <social.icon className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
-                      <span className="text-sm text-gray-400 group-hover:text-white transition-colors">
-                        {social.label}
-                      </span>
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ContactForm />
       </section>
     </div>
   );
