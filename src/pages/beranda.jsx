@@ -20,6 +20,9 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import CVfile from "../../public/cv/CV.pdf"; // Adjust the path as necessary
+import CVPreview from "../assets/cv/fajar-setia-pambudi.png"
+
 import Tools1 from "../assets/tools/tools1.svg"; // Adjust the path as necessary
 import Tools2 from "../assets/tools/tools2.svg"; // Adjust the path as necessary
 import Tools3 from "../assets/tools/tools3.svg"; // Adjust the path as necessary
@@ -28,9 +31,66 @@ import HTML from "../assets/tools/html.svg"; // Adjust the path as necessary
 import CSS from "../assets/tools/css.svg";
 
 import Foto from "../../public/foto_aku_3.jpg"; // Adjust the path as necessary
+import { div } from "framer-motion/client";
+
+function CV({ showCV, setShowCV }) {
+  if (!showCV) return null;
+  return (
+    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/70 backdrop-blur-sm transition-opacity duration-300 h-screen">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+        className="bg-zinc-900 border border-green-700/50 rounded-4xl shadow-2xl max-w-xl w-lg mx-auto relative text-center max-h-[100vh] flex flex-col sm:mx-6 lg:mx-8 p-6 sm:p-8"
+      >
+        <button
+          onClick={() => setShowCV(false)}
+          className="absolute top-2 right-2 sm:top-4 sm:right-4 text-gray-400 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10 z-10"
+          aria-label="Close CV Download Popup"
+        >
+          &times;
+        </button>
+
+        <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 border-b border-green-700/50 pb-2">
+          Pratinjau CV
+        </h3>
+
+        {/* AREA PRATINJAU CV (MENGGUNAKAN GAMBAR) */}
+        {/* overflow-y-auto memungkinkan gambar discroll jika terlalu tinggi */}
+        <div className="flex-grow overflow-y-auto pr-1">
+          <img
+            // Ganti CVPicture dengan path file gambar Anda (jika ditaruh di public, pakai path relatif)
+            src={CVPreview}
+            alt="Pratinjau CV Fajar Setia Pambudi"
+            loading="lazy"
+            // max-w-full dan h-auto memastikan gambar responsif dan tidak melebihi lebar modal
+            className="max-w-full mx-auto shadow-lg border border-zinc-700"
+          />
+        </div>
+        {/* END AREA PRATINJAU CV */}
+
+        {/* Tombol Download CV (Tetap di bawah) */}
+        <a
+          href={CVfile}
+          download="Fajar_Setia_Pambudi_CV.pdf"
+          target="_blank"
+          className="group bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-8 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-green-500/40 hover:shadow-xl hover:shadow-green-500/60 w-full mt-4"
+          onClick={() => {
+            setTimeout(() => setShowCV(false), 500);
+          }}
+        >
+          <Download className="w-5 h-5 group-hover:scale-110 transition-transform" />
+          Download Versi PDF Lengkap
+        </a>
+      </motion.div>
+    </div>
+  );
+}
 
 export default function Beranda() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [showCV, setShowCV] = useState(false);
 
   useEffect(() => {
     AOS.init({
@@ -119,6 +179,45 @@ export default function Beranda() {
     show: { opacity: 1, y: 0, transition: { type: "spring", duration: 3.0 } },
   };
 
+  const image = {
+    hidden: { opacity: 0, scale: 0.9 },
+    show: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100, // Mengatur kekakuan. Nilai lebih tinggi = transisi lebih cepat.
+        damping: 15, // Mengatur redaman/gesekan. Nilai lebih tinggi = pantulan lebih sedikit/lemah.
+        mass: 0.5, // Mengurangi mass (berat) agar terasa lebih ringan.
+      },
+    },
+  };
+  const imageTween = {
+    hidden: { opacity: 0, y: 50 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "tween", // Bisa dihilangkan karena ini default
+        duration: 0.8, // Tentukan durasi dalam detik
+        ease: "easeOut", // Mulai cepat, melambat di akhir
+      },
+    },
+  };
+
+  const imageInertia = {
+    hidden: { x: -100 },
+    show: {
+      x: 0,
+      transition: {
+        type: "inertia",
+        velocity: 500, // Kecepatan awal animasi
+        power: 1, // Seberapa jauh pergerakan
+        bounce: 0.5, // Sedikit pantulan di akhir (opsional)
+      },
+    },
+  };
+
   return (
     <div className="min-h-screen bg-black overflow-hidden relative">
       {/* Animated Background Elements */}
@@ -186,6 +285,7 @@ export default function Beranda() {
                   <Rocket className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                 </motion.button>
                 <motion.button
+                  onClick={() => setShowCV(true)}
                   whileHover={{
                     scale: 1.05,
                     boxShadow: "0 0 25px rgba(34,197,94,0.5)",
@@ -216,8 +316,12 @@ export default function Beranda() {
             </motion.div>
 
             {/* Right Side - Image */}
-            <div
-              data-aos="fade-left"
+            <motion.div
+              initial="hidden"
+              animate="show"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.5 }}
+              variants={imageTween}
               className="flex items-center justify-center relative order-1 md:order-2 py-12 md:py-0"
             >
               <div className="absolute w-52 h-52 sm:w-64 sm:h-64 md:w-80 md:h-80 bg-green-500/20 blur-3xl rounded-full"></div>
@@ -228,7 +332,7 @@ export default function Beranda() {
                 className="relative z-10 w-40 h-40 sm:w-56 sm:h-56 md:w-115 md:h-115 object-cover rounded-full border-2 border-green-800 shadow-2xl hover:scale-105 hover:shadow-green-400/60 transition-all duration-500 ease-out"
                 loading="lazy"
               />
-            </div>
+            </motion.div>
           </div>
         </div>
 
@@ -241,6 +345,9 @@ export default function Beranda() {
         <div className="absolute top-10 left-0 sm:top-20 sm:left-10 w-48 h-48 sm:w-72 sm:h-72 bg-green-500/25 rounded-full blur-3xl -z-10"></div>
         <div className="absolute bottom-10 right-0 sm:bottom-20 sm:right-10 w-48 h-48 sm:w-72 sm:h-72 bg-green-400/20 rounded-full blur-3xl -z-10"></div>
       </section>
+
+      {/* CV Modal */}
+      <CV showCV={showCV} setShowCV={setShowCV} />
 
       {/*about section*/}
       <section
