@@ -3,6 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css"; // Import AOS styles
 import { motion } from "framer-motion";
 import { useForm, ValidationError } from "@formspree/react";
+import { dataPerkebunanMPTI, dataKost, initialData } from "./data";
 import {
   Github,
   Linkedin,
@@ -24,6 +25,7 @@ import {
 
 import CVfile from "../../public/cv/CV.pdf"; // Adjust the path as necessary
 import CVPreview from "../assets/cv/fajar-setia-pambudi.png";
+import Foto from "../../public/foto_aku_3.jpg";
 
 import Tools1 from "../assets/tools/tools1.svg"; // Adjust the path as necessary
 import Tools2 from "../assets/tools/tools2.svg"; // Adjust the path as necessary
@@ -37,8 +39,6 @@ import POSTGRES from "../assets/tools/POSTGRES.svg";
 import GIT from "../assets/tools/git.svg";
 import GITHUB from "../assets/tools/github.svg";
 import NODE from "../assets/tools/node.svg";
-
-import Foto from "../../public/foto_aku_3.jpg"; // Adjust the path as necessary
 
 function CV({ showCV, setShowCV }) {
   if (!showCV) return null;
@@ -144,7 +144,7 @@ function ContactForm() {
             {/* email */}
             <div>
               <label
-                htmlFor="Email"
+                htmlFor="email"
                 className="block text-gray-300 mb-2 text-sm font-medium"
               >
                 Email Address
@@ -152,7 +152,7 @@ function ContactForm() {
               <input
                 type="email"
                 id="email"
-                name="email"
+                name="Email"
                 className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-green-400 transition-colors"
                 placeholder="@example.com"
               />
@@ -285,6 +285,68 @@ function ContactForm() {
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function Project({ socialLinks, Data = [] }) {
+  return (
+    <div className="max-w-7xl h-screen mx-auto">
+      <div className="text-center mb-12 sm:mb-16">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+          My Recent{" "}
+          <span className="bg-gradient-to-r from-green-400 to-green-500 text-transparent bg-clip-text">
+            Projects
+          </span>
+        </h2>
+        <div className="w-20 h-1 bg-gradient-to-r from-green-400 to-green-500 mx-auto rounded-full"></div>
+        <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          Here are a few projects I've worked on recently. Want to see more?{" "}
+          <a
+            href={socialLinks[0].href}
+            className="text-green-400 hover:underline"
+          >
+            Check out my GitHub.
+          </a>
+        </p>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+        {Data.map((project, index) => (
+          <div
+            key={project.id || index}
+            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300 flex flex-col"
+          >
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-40 object-cover rounded-xl mb-4 hover:scale-105 transition-transform"
+              loading="lazy"
+            />
+            <h3 className="text-xl font-semibold text-white mb-2">
+              {project.title}
+            </h3>
+            <p className="text-gray-400 flex-grow">{project.description}</p>
+            {/* Jika ada link project, tambahkan tombol view project */}
+            <div className="flex gap-4 items-center justify-center">
+              <a
+                href={project.link || "#"}
+                target="_blank"
+                className="mt-4 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-green-500/40 hover:shadow-xl hover:shadow-green-500/60 hover:scale-105"
+              >
+                View Project
+                <Rocket className="w-4 h-4" />
+              </a>
+              <a
+                href={project.github || "#"}
+                target="_blank"
+                className="mt-4 bg-white/10 hover:bg-white/20 px-6 py-3 text-green-400 rounded-xl font-semibold flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 hover:shadow-green-500/40 gap-2"
+              >
+                View Code
+              </a>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -582,6 +644,10 @@ export default function Beranda() {
                 className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto pt-4"
               >
                 <motion.button
+                  onClick={() => {
+                    const workSection = document.getElementById("projects");
+                    workSection?.scrollIntoView({ behavior: "smooth" });
+                  }}
                   whileHover={{
                     scale: 1.05,
                     boxShadow: "0 0 25px rgba(34,197,94,0.5)",
@@ -856,6 +922,14 @@ export default function Beranda() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* project section */}
+      <section
+        id="projects"
+        className="relative px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-24"
+      >
+        <Project socialLinks={socialLinks} Data={initialData} />
       </section>
 
       {/* contact section */}
