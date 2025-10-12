@@ -15,6 +15,24 @@ import Database from "../assets/project_porto/Kost/Database.png";
 import dashboardAdminKost from "../assets/project_porto/Kost/halamanAdmin.png";
 import dashboardUserKost from "../assets/project_porto/Kost/halamanBerandaKost.png";
 
+//tools
+import HTML from "../assets/tools/html.svg";
+import CSS from "../assets/tools/css.svg";
+import JS from "../assets/tools/tools1.svg";
+import php from "../assets/tools/php.svg";
+import MYSQL from "../assets/tools/MYSQL.svg";
+import BOOTSTRAP from "../assets/tools/bootstrap.svg";
+import React from "../assets/tools/tools2.svg"; // Adjust the path as necessary
+import Tailwind from "../assets/tools/tools3.svg"; // Adjust the path as necessary
+import CShap from "../assets/tools/tools4.svg"; // Adjust the path as necessary
+import POSTGRES from "../assets/tools/POSTGRES.svg";
+import GIT from "../assets/tools/git.svg";
+import GITHUB from "../assets/tools/github.svg";
+import NODE from "../assets/tools/node.svg";
+import SWAGGER from "../assets/tools/swagger.svg";
+import vite from "../assets/tools/vite.svg";
+import Net from "../assets/tools/dotNet.svg";
+
 
 //untuk tampilan awal
 export const initialData = [
@@ -23,102 +41,143 @@ export const initialData = [
         title: "Perkebunan MPTI",
         description: "Sistem informasi perkebunan MPTI yang membantu dalam pengelolaan data tanaman, jadwal perawatan, dan laporan cuplikan data.",
         image: dashboardUser,
-        link: "",
-        github: "",
+        githubBe:" ",
+        githubFe: "https://github.com/fajar-setia/Kebun-Wiyono",
+        screenshots : [
+          {
+            id:1,
+            image:halamanLogin,
+            description:"ini adalah halaman login dari project perkebunan"
+          },
+          {
+            id:2,
+            image:dashboardAdmin,
+            description:"Halaman dashboard untuk admin yang menyediakan fitur manajemen data perkebunan, termasuk penambahan, pengeditan, dan penghapusan data tanaman serta pengguna."
+          },
+          {
+            id:3,
+            image:cuplikanScript,
+            description:"iCuplikan kode program yang menunjukkan bagaimana fitur-fitur utama dalam aplikasi diimplementasikan, termasuk logika bisnis dan interaksi dengan database."
+          },
+          {
+            id:4,
+            image:cuplikanDatabase,
+            description:"Cuplikan struktur database yang digunakan dalam sistem informasi perkebunan MPTI. Database ini menyimpan semua data terkait tanaman, pengguna, dan aktivitas perkebunan."
+          }
+        ],
+        tools: [
+          {
+            id:1,
+            title: "HTML",
+            image:HTML
+          },
+          {
+            id:2,
+            title: "CSS",
+            image: CSS,
+          },
+          {
+            id:3,
+            title: "JavaScript",
+            image: JS,
+          },
+          {
+            id:4,
+            title: "PHP",
+            image: php,
+          },
+          {
+            id:5,
+            title: "MYSQL",
+            image: MYSQL,
+          },
+          {
+            id:6,
+            title: "BOOTSTRAP",
+            image: BOOTSTRAP,
+          }
+        ]
     },
     {
         id: 2,
         title: "Aplikasi Kost",
         description: "Aplikasi kost yang memudahkan pengelolaan data kamar, fasilitas, dan pemesanan kost dengan fitur lengkap untuk admin dan pengguna.",
         image: dashboardUserKost,
-        link: "",
-        github: "", 
+        githubBe: "https://github.com/fajar-setia/API-for-ReactKost",
+        githubFe: "https://github.com/fajar-setia/React-Kost",
+        screenshots: [
+          {
+            id:1,
+            image:dashboardAdminKost,
+            description: "Halaman dashboard untuk admin yang menyediakan fitur manajemen data kost, termasuk penambahan, pengeditan, dan penghapusan data kamar serta pemesanan."
+          },
+          {
+            id:2,
+            image:Database,
+            description: "uplikan struktur database yang digunakan dalam aplikasi kost. Database ini menyimpan semua data terkait kamar, fasilitas, pengguna, dan pemesanan."
+          },
+          {
+            id:3,
+            image:scriptFrontend,
+            description: "Cuplikan kode program frontend yang menunjukkan bagaimana antarmuka pengguna dirancang dan diimplementasikan, termasuk interaksi pengguna dan tampilan data."
+          },
+          {
+            id:4,
+            image:scriptBackend,
+            description: "Cuplikan kode program backend yang menunjukkan bagaimana server menangani permintaan dari klien, mengelola logika bisnis, dan berinteraksi dengan database."
+          },
+          {
+            id:5,
+            image:API,
+            description: "API JSON yang digunakan untuk mengelola data kost, termasuk informasi tentang kamar, fasilitas, dan pemesanan. API ini memungkinkan komunikasi antara frontend dan backend."
+          }
+        ],
+        tools: [
+          {
+            id:1,
+            title: "React",
+            image:React
+          },
+          {
+            id:2,
+            title: "TailwinCSS",
+            image:Tailwind
+          },
+          {
+            id:3,
+            title: "Node Js",
+            image:NODE
+          },
+          {
+            id:4,
+            title: "JavaScript",
+            image:JS
+          },
+          {
+            id:5,
+            title: "C Shap",
+            image:CShap
+          },
+          {
+            id:6,
+            title: "postgreSQL",
+            image:POSTGRES
+          },
+          {
+            id:7,
+            title: "Swagger",
+            image:SWAGGER
+          },
+          {
+            id:8,
+            title: "Vite",
+            image:vite
+          },
+          {
+            id:9,
+            title: ".Net",
+            image:Net
+          }
+        ]
     }
-];
-
-
-
-//project perkebunan MPTI
-export const dataPerkebunanMPTI = [
-  {
-    id: 1,
-    image: halamanLogin,
-    title: "Halaman Login",
-    description:
-      "Halaman login yang digunakan untuk mengakses sistem informasi perkebunan MPTI. Pengguna dapat memasukkan kredensial mereka untuk masuk ke dalam aplikasi.",
-  },
-  {
-    id: 2,
-    image: dashboardUser,
-    title: "Dashboard User",
-    description:
-      "Halaman dashboard untuk pengguna yang menampilkan informasi penting tentang perkebunan, termasuk data tanaman, jadwal perawatan, dan laporan cuplikan data.",
-  },
-  {
-    id: 3,
-    image: dashboardAdmin,
-    title: "Dashboard Admin",
-    description:
-      "Halaman dashboard untuk admin yang menyediakan fitur manajemen data perkebunan, termasuk penambahan, pengeditan, dan penghapusan data tanaman serta pengguna.",
-  },
-  {
-    id: 4,
-    image: cuplikanDatabase,
-    title: "Cuplikan Database",
-    description:
-      "Cuplikan struktur database yang digunakan dalam sistem informasi perkebunan MPTI. Database ini menyimpan semua data terkait tanaman, pengguna, dan aktivitas perkebunan.",
-  },
-  {
-    id: 5,
-    image: cuplikanScript,
-    title: "Cuplikan Script",
-    description:
-      "Cuplikan kode program yang menunjukkan bagaimana fitur-fitur utama dalam aplikasi diimplementasikan, termasuk logika bisnis dan interaksi dengan database.",
-  },
-];
-
-//project kost
-export const dataKost = [
-  {
-    id: 1,
-    image: API,
-    title: "API JSON",
-    description:
-      "API JSON yang digunakan untuk mengelola data kost, termasuk informasi tentang kamar, fasilitas, dan pemesanan. API ini memungkinkan komunikasi antara frontend dan backend.",
-  },
-  {
-    id: 2,
-    image: scriptBackend,
-    title: "Cuplikan Script Backend",
-    description:
-      "Cuplikan kode program backend yang menunjukkan bagaimana server menangani permintaan dari klien, mengelola logika bisnis, dan berinteraksi dengan database.",
-  },
-  {
-    id: 3,
-    image: scriptFrontend,
-    title: "Cuplikan Script Frontend",
-    description:
-      "Cuplikan kode program frontend yang menunjukkan bagaimana antarmuka pengguna dirancang dan diimplementasikan, termasuk interaksi pengguna dan tampilan data.",
-  },
-  {
-    id: 4,
-    image: Database,
-    title: "Cuplikan Database",
-    description:
-      "Cuplikan struktur database yang digunakan dalam aplikasi kost. Database ini menyimpan semua data terkait kamar, fasilitas, pengguna, dan pemesanan.",
-  },
-  {
-    id: 5,
-    image: dashboardAdminKost,
-    title: "Dashboard Admin",
-    description:
-      "Halaman dashboard untuk admin yang menyediakan fitur manajemen data kost, termasuk penambahan, pengeditan, dan penghapusan data kamar serta pemesanan.",
-  },
-  {
-    id: 6,
-    image: dashboardUserKost,
-    title: "Dashboard User",
-    description:
-      "Halaman dashboard untuk pengguna yang menampilkan informasi penting tentang kost, termasuk daftar kamar yang tersedia, fasilitas, dan status pemesanan.",
-  },
 ];

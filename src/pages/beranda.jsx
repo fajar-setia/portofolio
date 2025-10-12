@@ -1,9 +1,9 @@
 import { useState, useEffect, use } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css"; // Import AOS styles
-import { motion } from "framer-motion";
+import { AnimatePresence, motion, scale } from "framer-motion";
 import { useForm, ValidationError } from "@formspree/react";
-import { dataPerkebunanMPTI, dataKost, initialData } from "./data";
+import { initialData } from "./data";
 import {
   Github,
   Linkedin,
@@ -21,12 +21,17 @@ import {
   Send,
   Sparkles,
   ListIcon,
+  X,
+  Tag,
+  ExternalLink,
 } from "lucide-react";
 
+//import cv dan foto hero image
 import CVfile from "../../public/cv/CV.pdf"; // Adjust the path as necessary
 import CVPreview from "../assets/cv/fajar-setia-pambudi.png";
 import Foto from "../../public/foto_aku_3.jpg";
 
+//import gambar
 import Tools1 from "../assets/tools/tools1.svg"; // Adjust the path as necessary
 import Tools2 from "../assets/tools/tools2.svg"; // Adjust the path as necessary
 import Tools3 from "../assets/tools/tools3.svg"; // Adjust the path as necessary
@@ -39,6 +44,8 @@ import POSTGRES from "../assets/tools/POSTGRES.svg";
 import GIT from "../assets/tools/git.svg";
 import GITHUB from "../assets/tools/github.svg";
 import NODE from "../assets/tools/node.svg";
+import BOOTSTRAP from "../assets/tools/bootstrap.svg";
+import { i, s } from "framer-motion/client";
 
 function CV({ showCV, setShowCV }) {
   if (!showCV) return null;
@@ -95,13 +102,20 @@ function CV({ showCV, setShowCV }) {
   );
 }
 
-function ContactForm() {
+function ContactForm({ socialLinks }) {
   const [state, handleSubmit] = useForm("mjkaaayv");
+
   if (state.succeeded) {
-    return <p className="text-green-400">Thanks for joining!</p>;
+    return (
+      <div className="text-center text-green-400 py-20">
+        Thanks for joining!
+      </div>
+    );
   }
+
   return (
     <div className="max-w-7xl mx-auto">
+      {/* Header Section */}
       <div className="text-center mb-12 sm:mb-16">
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
           Get In{" "}
@@ -111,21 +125,26 @@ function ContactForm() {
         </h2>
         <div className="w-20 h-1 bg-gradient-to-r from-green-400 to-green-500 mx-auto rounded-full mb-4"></div>
         <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-          Have a project in mind? Let's work together to create something
+          Have a project in mind? Let&apos;s work together to create something
           amazing!
         </p>
       </div>
 
+      {/* Grid Wrapper */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
         {/* Contact Form */}
         <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8">
           <h3 className="text-2xl font-semibold text-white mb-6">
             Send Message
           </h3>
+
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* nama */}
+            {/* Name */}
             <div>
-              <label className="block text-gray-300 mb-2 text-sm font-medium">
+              <label
+                htmlFor="name"
+                className="block text-gray-300 mb-2 text-sm font-medium"
+              >
                 Your Name
               </label>
               <input
@@ -133,7 +152,7 @@ function ContactForm() {
                 type="text"
                 name="name"
                 className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-green-400 transition-colors"
-                placeholder="type your name"
+                placeholder="Type your name"
               />
               <ValidationError
                 prefix="Name"
@@ -141,7 +160,8 @@ function ContactForm() {
                 errors={state.errors}
               />
             </div>
-            {/* email */}
+
+            {/* Email */}
             <div>
               <label
                 htmlFor="email"
@@ -152,7 +172,7 @@ function ContactForm() {
               <input
                 type="email"
                 id="email"
-                name="Email"
+                name="email"
                 className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-green-400 transition-colors"
                 placeholder="@example.com"
               />
@@ -162,9 +182,13 @@ function ContactForm() {
                 errors={state.errors}
               />
             </div>
-            {/* subject */}
+
+            {/* Subject */}
             <div>
-              <label className="block text-gray-300 mb-2 text-sm font-medium">
+              <label
+                htmlFor="subject"
+                className="block text-gray-300 mb-2 text-sm font-medium"
+              >
                 Subject
               </label>
               <input
@@ -180,9 +204,13 @@ function ContactForm() {
                 errors={state.errors}
               />
             </div>
-            {/* message */}
+
+            {/* Message */}
             <div>
-              <label className="block text-gray-300 mb-2 text-sm font-medium">
+              <label
+                htmlFor="message"
+                className="block text-gray-300 mb-2 text-sm font-medium"
+              >
                 Message
               </label>
               <textarea
@@ -198,6 +226,8 @@ function ContactForm() {
                 errors={state.errors}
               />
             </div>
+
+            {/* Submit Button */}
             <button
               type="submit"
               disabled={state.submitting}
@@ -211,10 +241,12 @@ function ContactForm() {
 
         {/* Contact Info */}
         <div className="space-y-6">
+          {/* Info Section */}
           <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300">
             <h3 className="text-2xl font-semibold text-white mb-6">
               Contact Information
             </h3>
+
             <div className="space-y-6">
               <div className="flex items-start gap-4">
                 <div className="bg-green-500/20 p-3 rounded-xl">
@@ -225,6 +257,7 @@ function ContactForm() {
                   <p className="text-gray-400">fajarsetiapambudi@gmail.com</p>
                 </div>
               </div>
+
               <div className="flex items-start gap-4">
                 <div className="bg-green-500/20 p-3 rounded-xl">
                   <Phone className="w-6 h-6 text-green-400" />
@@ -234,46 +267,29 @@ function ContactForm() {
                   <p className="text-gray-400">+62883595329 (WA)</p>
                 </div>
               </div>
+
               <div className="flex items-start gap-4">
                 <div className="bg-green-500/20 p-3 rounded-xl">
                   <MapPin className="w-6 h-6 text-green-400" />
                 </div>
                 <div>
                   <h4 className="text-white font-medium mb-1">Location</h4>
-                  <p className="text-gray-400">indonesia</p>
+                  <p className="text-gray-400">Indonesia</p>
                 </div>
               </div>
             </div>
           </div>
 
+          {/* Follow Me Section */}
           <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300">
             <h3 className="text-xl font-semibold text-white mb-4">Follow Me</h3>
             <div className="grid grid-cols-2 gap-3">
-              {[
-                {
-                  icon: Github,
-                  label: "GitHub",
-                  color: "hover:bg-gray-700",
-                },
-                {
-                  icon: Linkedin,
-                  label: "LinkedIn",
-                  color: "hover:bg-blue-700",
-                },
-                {
-                  icon: Instagram,
-                  label: "Instagram",
-                  color: "hover:bg-pink-700",
-                },
-                {
-                  icon: Facebook,
-                  label: "Facebook",
-                  color: "hover:bg-blue-600",
-                },
-              ].map((social, index) => (
+              {socialLinks.map((social, index) => (
                 <a
                   key={index}
-                  href="#"
+                  href={social.href}
+                  aria-label={social.label}
+                  target={social.label === "Email" ? "_self" : "_blank"}
                   className={`flex items-center gap-2 bg-white/5 ${social.color} p-3 rounded-xl transition-all duration-300 group`}
                 >
                   <social.icon className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
@@ -291,8 +307,26 @@ function ContactForm() {
 }
 
 function Project({ socialLinks, Data = [] }) {
+  const [selectedProject, setSelectedProject] = useState(null);
+  const closeModal = () => setSelectedProject(null);
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        type: "spring",
+        damping: 10,
+        stiffness: 100,
+      },
+    },
+  };
+
   return (
-    <div className="max-w-7xl h-screen mx-auto">
+    <div className="max-w-7xl py-10 mx-auto">
       <div className="text-center mb-12 sm:mb-16">
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
           My Recent{" "}
@@ -313,41 +347,241 @@ function Project({ socialLinks, Data = [] }) {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
         {Data.map((project, index) => (
-          <div
+          <motion.div
             key={project.id || index}
-            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300 flex flex-col"
+            // Animasi saat kartu masuk ke viewport
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            // Efek Hover yang lebih menawan (naik dan shadow hijau)
+            whileHover={{
+              y: -5,
+              boxShadow: "0 10px 20px rgba(52, 211, 153, 0.2)",
+              transition: { duration: 0.3 },
+            }}
+            // Styling Kartu Utama
+            className="bg-zinc-800/70 backdrop-blur-md border border-zinc-700/50 rounded-2xl p-6 sm:p-8 transition-all duration-300 flex flex-col shadow-xl"
           >
+            {/* 1. GAMBAR PROYEK */}
             <img
               src={project.image}
               alt={project.title}
-              className="w-full h-40 object-cover rounded-xl mb-4 hover:scale-105 transition-transform"
+              // Meningkatkan radius sudut, menambahkan shadow
+              className="w-full h-48 object-cover rounded-xl mb-6 shadow-lg border border-zinc-700/50"
               loading="lazy"
             />
-            <h3 className="text-xl font-semibold text-white mb-2">
+
+            {/* 2. JUDUL PROYEK */}
+            <h3 className="text-2xl font-extrabold text-white mb-3 text-center">
               {project.title}
             </h3>
-            <p className="text-gray-400 flex-grow">{project.description}</p>
-            {/* Jika ada link project, tambahkan tombol view project */}
-            <div className="flex gap-4 items-center justify-center">
+
+            {/* 3. DESKRIPSI (Teks lebih jelas) */}
+            <p className="text-gray-400 text-justify leading-relaxed flex-grow mb-4">
+              {project.description}
+            </p>
+
+            {/* 4. TEKNOLOGI YANG DIPAKAI (Menggunakan perbaikan ikon kecil) */}
+            <div className="mt-4 flex gap-2 flex-wrap items-center justify-center border-t border-zinc-700/50 pt-4">
+              {project.tools?.map((item, idx) => (
+                <motion.span
+                  key={item.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }} // Gunakan 'animate' karena sudah di dalam whileInView
+                  transition={{ delay: idx * 0.05 + 0.3 }}
+                  // Styling Tag yang direvisi (flex items-center)
+                  className="flex items-center gap-1 px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400 font-medium"
+                >
+                  {/* Wadah Ikon Kecil (4x4) */}
+                  <span className="w-4 h-4 flex items-center justify-center">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-contain"
+                    />
+                  </span>
+                  {/* Nama Teknologi */}
+                  <span className="text-white/80">{item.title}</span>
+                </motion.span>
+              ))}
+            </div>
+
+            {/* 5. TOMBOL AKSI */}
+            <div className="flex gap-4 mt-6 items-center justify-center">
               <a
-                href={project.link || "#"}
-                target="_blank"
-                className="mt-4 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-green-500/40 hover:shadow-xl hover:shadow-green-500/60 hover:scale-105"
+                // Menggunakan onClick untuk modal
+                onClick={() => setSelectedProject(project)}
+                className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-5 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-green-500/40 hover:shadow-xl hover:shadow-green-500/60 cursor-pointer"
               >
-                View Project
+                View Details
                 <Rocket className="w-4 h-4" />
               </a>
               <a
                 href={project.github || "#"}
                 target="_blank"
-                className="mt-4 bg-white/10 hover:bg-white/20 px-6 py-3 text-green-400 rounded-xl font-semibold flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 hover:shadow-green-500/40 gap-2"
+                rel="noopener noreferrer"
+                className="bg-white/10 hover:bg-white/20 px-5 py-3 text-green-400 rounded-xl font-semibold flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-green-500/40 gap-2"
               >
                 View Code
               </a>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            // OVERLAY
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[100] p-4"
+            onClick={closeModal} // Tutup modal ketika klik di luar
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 50 }}
+              transition={{
+                duration: 0.4,
+                ease: "easeOut",
+                damping: 20,
+                stiffness: 300,
+              }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-zinc-800 border-2 border-green-600/50 py-6 px-6 rounded-4xl shadow-2xl shadow-green-500/20"
+            >
+              <motion.div
+                // KONTEN MODAL
+                className="bg-zinc-900 rounded-4xl max-w-4xl w-full p-8 text-white relative overflow-y-auto max-h-[90vh] shadow-2xl shadow-green-500/20"
+                initial={{ scale: 0.95, opacity: 0, y: 50 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.95, opacity: 0, y: 50 }}
+                transition={{
+                  duration: 0.4,
+                  type: "spring",
+                  damping: 20,
+                  stiffness: 300,
+                }}
+                onClick={(e) => e.stopPropagation()} // Mencegah penutupan saat klik di dalam modal
+              >
+                {/* Tombol Tutup */}
+                <button
+                  className="absolute top-4 right-4 p-2 rounded-full text-gray-400 bg-zinc-800 hover:bg-zinc-700 hover:text-white transition-colors z-10"
+                  onClick={closeModal}
+                >
+                  <X className="w-6 h-6" />
+                </button>
+
+                {/* HEADER & JUDUL */}
+                <div className="border-b border-zinc-700/50 pb-4 mb-6">
+                  <h2 className="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-green-600">
+                    {selectedProject.title}
+                  </h2>
+
+                  {/* TAMPILAN TAGS/TOOLS */}
+                  {selectedProject.tools && (
+                    <div className="flex flex-wrap gap-4 mt-2 text-gray-400 text-sm items-center">
+                      <Tag className="w-7 h-7 text-green-500" />
+                      {selectedProject.tools.map((tool, index) => (
+                        <span
+                          key={tool.id || index}
+                          className="flex px-3 py-1.5 bg-green-500/10 rounded-full font-medium justify-center items-center"
+                        >
+                          <span className="w-7 h-7 flex items-center justify-center">
+                            <img
+                              src={tool.image}
+                              alt={tool.title}
+                              className="w-full h-full object-contain"
+                              loading="lazy"
+                            />
+                          </span>
+                          <span>{tool.title}</span>
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* DESKRIPSI & RINGKASAN */}
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold text-gray-200 mb-2">
+                    Project Overview
+                  </h3>
+                  <p className="text-gray-300 whitespace-pre-line leading-relaxed">
+                    {/* Gunakan deskripsi yang lebih panjang jika ada field 'fullDescription', jika tidak pakai 'description' */}
+                    {selectedProject.fullDescription ||
+                      selectedProject.description}
+                  </p>
+                </div>
+
+                {/* 🟢 KODE TOMBOL AKSI CEPAT (HARUS ADA DI SINI) 🟢 */}
+                <div className="flex gap-4 border-t border-zinc-700/50 pt-4 items-center justify-center">
+                  {selectedProject.githubBe && ( // Asumsi link Live Demo ada di field 'link'
+                    <a
+                      href={selectedProject.githubBe}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg font-semibold transition-colors shadow-md shadow-green-500/30"
+                    >
+                      Code Backend <Github className="w-4 h-4" />
+                    </a>
+                  )}
+                  {selectedProject.githubFe && (
+                    <a
+                      href={selectedProject.githubFe}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg font-semibold transition-colors shadow-md shadow-green-500/30"
+                    >
+                      Code Frontend <Github className="w-4 h-4" />
+                    </a>
+                  )}
+                </div>
+
+                {/* GALERI SCREENSHOTS */}
+                {selectedProject.screenshots &&
+                selectedProject.screenshots.length > 0 ? (
+                  <div className="mt-4 pt-4 border-t border-zinc-700/50">
+                    <h3 className="text-xl font-bold text-gray-200 mb-4">
+                      Screenshots ({selectedProject.screenshots.length})
+                    </h3>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {selectedProject.screenshots.map((shot, idx) => (
+                        <motion.div
+                          key={shot.id || idx}
+                          className="bg-zinc-800 rounded-xl overflow-hidden shadow-lg border border-zinc-700/70"
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.5, delay: idx * 0.1 }}
+                        >
+                          <img
+                            src={shot.src || shot.image} // Mendukung field 'src' atau 'image'
+                            alt={shot.caption || shot.description}
+                            className="w-full h-auto object-cover border-b border-zinc-700/70"
+                            loading="lazy"
+                            whileHover={{ scale: 0 }}
+                          />
+                          <p className="p-3 text-sm text-gray-400 text-center italic">
+                            {shot.caption || shot.description}
+                          </p>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-gray-400 italic mt-4 border-t border-zinc-700/50 pt-4">
+                    No detailed screenshots available for this project.
+                  </p>
+                )}
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -357,14 +591,6 @@ export default function Beranda() {
   const [showCV, setShowCV] = useState(false);
 
   useEffect(() => {
-    AOS.init({
-      duration: 2000,
-      once: true, // Animation only happens once
-      offset: 120, // Start animation when element is 100px from viewport
-    });
-  }, []);
-
-  useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -372,6 +598,7 @@ export default function Beranda() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  //array about 2
   const listIconPro = [
     {
       id: 1,
@@ -427,8 +654,15 @@ export default function Beranda() {
       nama: "PostgreSQL",
       ket: "database",
     },
+    {
+      id: 10,
+      gambar: BOOTSTRAP,
+      nama: "BOOTSTRAP",
+      ket: "CSS Framework",
+    },
   ];
 
+  //array about 3
   const listIconTech = [
     {
       id: 1,
@@ -504,6 +738,7 @@ export default function Beranda() {
     },
   ];
 
+  //data media social
   const socialLinks = [
     {
       icon: Github,
@@ -533,6 +768,7 @@ export default function Beranda() {
   ];
 
   //framer motion variants
+  //herosection
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -542,24 +778,38 @@ export default function Beranda() {
       },
     },
   };
+
   const item = {
     hidden: { opacity: 0, y: 30 },
     show: { opacity: 1, y: 0, transition: { type: "spring", duration: 3.0 } },
   };
 
-  const image = {
-    hidden: { opacity: 0, scale: 0.9 },
-    show: {
+  //container skils
+  const containerSkills = {
+    hidden: { opacity: 0 },
+    visible: {
       opacity: 1,
-      scale: 1,
       transition: {
-        type: "spring",
-        stiffness: 100, // Mengatur kekakuan. Nilai lebih tinggi = transisi lebih cepat.
-        damping: 15, // Mengatur redaman/gesekan. Nilai lebih tinggi = pantulan lebih sedikit/lemah.
-        mass: 0.5, // Mengurangi mass (berat) agar terasa lebih ringan.
+        staggerChildren: 0.1, // Jeda waktu antara setiap kartu (0.1 detik)
       },
     },
   };
+
+  const itemSkills = {
+    hidden: { opacity: 0, y: 50, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        type: "spring", // Menggunakan jenis pegas untuk efek pantulan ringan
+        damping: 10,
+        stiffness: 100,
+      },
+    },
+  };
+
   const imageTween = {
     hidden: { opacity: 0, y: 50 },
     show: {
@@ -573,15 +823,38 @@ export default function Beranda() {
     },
   };
 
-  const imageInertia = {
-    hidden: { x: -100 },
-    show: {
-      x: 0,
+  //about section
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
       transition: {
-        type: "inertia",
-        velocity: 500, // Kecepatan awal animasi
-        power: 1, // Seberapa jauh pergerakan
-        bounce: 0.5, // Sedikit pantulan di akhir (opsional)
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const dotVariants = {
+    hidden: { opacity: 0, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: "BreaseOut",
       },
     },
   };
@@ -730,7 +1003,13 @@ export default function Beranda() {
         className="relative px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-24"
       >
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 sm:mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: -30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12 sm:mb-16"
+          >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
               About{" "}
               <span className="bg-gradient-to-r from-green-400 to-green-500 text-transparent bg-clip-text">
@@ -738,28 +1017,84 @@ export default function Beranda() {
               </span>
             </h2>
             <div className="w-20 h-1 bg-gradient-to-r from-green-400 to-green-500 mx-auto rounded-full"></div>
-          </div>
+          </motion.div>
 
           {/* Roadmap Timeline */}
           <div className="relative max-w-5xl mx-auto">
             {/* Winding Path Line */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-1 -translate-x-1/2 hidden md:block">
-              <div className="absolute inset-0 bg-gradient-to-b from-green-500/20 via-green-400/40 to-green-500/20"></div>
+            <div
+              className="absolute left-1/2 -translate-x-1/2 top-0 h-full hidden md:block pointer-events-none"
+              style={{ width: "600px" }}
+            >
+              <svg
+                className="w-full h-full"
+                viewBox="0 0 600 1200"
+                preserveAspectRatio="xMidYMid meet"
+              >
+                <motion.path
+                  d="M 300 80 C 450 150, 480 280, 400 400 C 320 520, 150 600, 200 750 C 250 900, 420 980, 300 1150"
+                  stroke="#12AD2B"
+                  strokeWidth="7"
+                  fill="none"
+                  strokeLinecap="round"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  whileInView={{ pathLength: 1, opacity: 0.8 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 2.5, ease: "easeInOut" }}
+                  style={{
+                    filter:
+                      "drop-shadow(0 0 8px rgba(18, 173, 43, 0.6)) drop-shadow(0 0 16px rgba(18, 173, 43, 0.4)) drop-shadow(0 0 24px rgba(18, 173, 43, 0.2))",
+                  }}
+                />
+                <defs>
+                  <linearGradient
+                    id="gradient"
+                    x1="0%"
+                    y1="0%"
+                    x2="0%"
+                    y2="100%"
+                  >
+                    <stop offset="0%" stopColor="#10b981" stopOpacity="0.4" />
+                    <stop offset="50%" stopColor="#34d399" stopOpacity="0.8" />
+                    <stop offset="100%" stopColor="#10b981" stopOpacity="0.4" />
+                  </linearGradient>
+                </defs>
+              </svg>
             </div>
-
             {/* Roadmap Items */}
-            <div className="space-y-12 md:space-y-24">
+            <div className="space-y-10 md:space-y-15">
+              {/* Roadmap Items */}
+              <motion.div
+                className="space-y-12 md:space-y-24 relative"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+              ></motion.div>
               {/* Start Point */}
-              <div className="relative flex items-center justify-center">
-                <div className="bg-gradient-to-r from-green-600 to-green-500 p-4 rounded-full shadow-lg shadow-green-500/50">
+              <motion.div
+                variants={itemVariants}
+                className="relative flex items-center justify-center"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.1, rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                  className="bg-gradient-to-r from-green-600 to-green-500 p-4 rounded-full shadow-lg shadow-green-500/50"
+                >
                   <Rocket className="w-8 h-8 text-white" />
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
 
               {/* Journey Item 1 - Left */}
-              <div className="relative grid md:grid-cols-2 gap-8 items-center">
+              <motion.div
+                className="relative grid md:grid-cols-2 gap-8 items-center"
+                variants={itemVariants}
+              >
                 <div className="md:text-right order-2 md:order-1">
-                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300 hover:scale-105">
+                  <motion.div
+                    className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300"
+                    whileHover={{ scale: 1.05, y: -5 }}
+                  >
                     <div className="flex items-center gap-3 justify-center md:justify-end mb-4">
                       <h3 className="text-xl sm:text-2xl font-semibold text-white">
                         The Beginning
@@ -772,40 +1107,58 @@ export default function Beranda() {
                       proyek-proyek kecil untuk memahami dasar-dasar
                       pengembangan web.
                     </p>
-                    <div className="mt-4 flex justify-center md:justify-end gap-2">
-                      <span className="flex items-center px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400">
-                        <span className="icon w-5 h-5">
-                          <img src={HTML} alt="image" />
-                        </span>
-                        <span className="text">HTML</span>
-                      </span>
-                      <span className="flex items-center px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400">
-                        <span className="icon w-5 h-5">
-                          <img src={CSS} alt="image" />
-                        </span>
-                        <span className="text">CSS</span>
-                      </span>
-                      <span className="flex items-center px-3 gap-1 py-1 bg-green-500/20 rounded-full text-xs text-green-400">
-                        <span className="icon w-5 h-5">
-                          <img src={Tools1} alt="image" />
-                        </span>
-                        <span className="text">Java Script</span>
-                      </span>
+                    <div className="mt-4 flex justify-center md:justify-end gap-2 flex-wrap">
+                      {listIconPro
+                        .filter(
+                          (item) =>
+                            item.id === 1 || item.id === 5 || item.id === 6
+                        )
+                        .map((item, idx) => (
+                          <motion.span
+                            key={item.id}
+                            className="flex items-center px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400"
+                            initial={{ opacity: 0, scale: 0 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: idx * 0.1 + 0.3 }}
+                          >
+                            <span className="icon w-5 h-5">
+                              <img
+                                src={item.gambar}
+                                alt="image"
+                                className="w-5 h-5 object-contain"
+                              />
+                            </span>
+                            <span className="text">{item.nama}</span>
+                          </motion.span>
+                        ))}
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
                 <div className="order-1 md:order-2 flex justify-center md:justify-start">
-                  <div className="w-4 h-4 bg-green-500 rounded-full shadow-lg shadow-green-500/50 ring-4 ring-green-500/20"></div>
+                  <motion.div
+                    className="w-4 h-4 bg-green-500 rounded-full shadow-lg shadow-green-500/50 ring-4 ring-green-500/20"
+                    variants={dotVariants}
+                  />
                 </div>
-              </div>
+              </motion.div>
 
               {/* Journey Item 2 - Right */}
-              <div className="relative grid md:grid-cols-2 gap-8 items-center">
+              <motion.div
+                variants={itemVariants}
+                className="relative grid md:grid-cols-2 gap-8 items-center"
+              >
                 <div className="flex justify-center md:justify-end">
-                  <div className="w-4 h-4 bg-green-400 rounded-full shadow-lg shadow-green-400/50 ring-4 ring-green-400/20"></div>
+                  <motion.div
+                    variants={dotVariants}
+                    className="w-4 h-4 bg-green-400 rounded-full shadow-lg shadow-green-400/50 ring-4 ring-green-400/20"
+                  ></motion.div>
                 </div>
                 <div>
-                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300 hover:scale-105">
+                  <motion.div
+                    whileHover={{ scale: 1.05, y: -5 }}
+                    className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300 hover:scale-105"
+                  >
                     <div className="flex items-center gap-3 mb-4">
                       <Briefcase className="w-6 h-6 text-green-400" />
                       <h3 className="text-xl sm:text-2xl font-semibold text-white">
@@ -821,26 +1174,36 @@ export default function Beranda() {
                       PostgreSQL untuk database.
                     </p>
                     <div className="mt-4 flex gap-2 flex-wrap">
-                      {listIconPro.map((item) => (
-                        <span
+                      {listIconPro.map((item, idx) => (
+                        <motion.span
                           key={item.id}
+                          initial={{ opacity: 0, scale: 0 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: idx * 0.05 + 0.3 }}
                           className="flex items-center px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400"
                         >
                           <span className="icon w-5 h-5">
                             <img src={item.gambar} alt="image" />
                           </span>
                           <span className="text">{item.nama}</span>
-                        </span>
+                        </motion.span>
                       ))}
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Journey Item 3 - Left */}
-              <div className="relative grid md:grid-cols-2 gap-8 items-center">
+              <motion.div
+                variants={itemVariants}
+                className="relative grid md:grid-cols-2 gap-8 items-center"
+              >
                 <div className="md:text-right order-2 md:order-1">
-                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300 hover:scale-105">
+                  <motion.div
+                    whileHover={{ scale: 1.05, y: -5 }}
+                    className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300 hover:scale-105"
+                  >
                     <div className="flex items-center gap-3 justify-center md:justify-end mb-4">
                       <h3 className="text-xl sm:text-2xl font-semibold text-white">
                         Technical Skills
@@ -859,24 +1222,31 @@ export default function Beranda() {
                       aplikasi web.
                     </p>
                     <div className="mt-4 flex justify-center md:justify-end gap-2 flex-wrap">
-                      {listIconTech.map((item) => (
-                        <span
+                      {listIconTech.map((item, idx) => (
+                        <motion.span
                           key={item.id}
+                          initial={{ opacity: 0, scale: 0 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: idx * 0.05 + 0.3 }}
                           className="flex items-center px-3 py-1 bg-green-500/20 rounded-full text-xs text-green-400"
                         >
                           <span className="icon w-5 h-5">
                             <img src={item.gambar} alt="image" />
                           </span>
                           <span className="text">{item.nama}</span>
-                        </span>
+                        </motion.span>
                       ))}
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
                 <div className="order-1 md:order-2 flex justify-center md:justify-start">
-                  <div className="w-4 h-4 bg-yellow-400 rounded-full shadow-lg shadow-yellow-400/50 ring-4 ring-yellow-400/20"></div>
+                  <motion.div
+                    variants={dotVariants}
+                    className="w-4 h-4 bg-yellow-400 rounded-full shadow-lg shadow-yellow-400/50 ring-4 ring-yellow-400/20"
+                  />
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -897,14 +1267,23 @@ export default function Beranda() {
             </h2>
             <div className="w-20 h-1 bg-gradient-to-r from-green-400 to-green-500 mx-auto"></div>
           </div>
-          <div
-            data-aos="fade-out"
+          <motion.div
+            variants={containerSkills}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
             className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-4"
           >
             {listIconTech.map((item) => (
-              <div
+              <motion.div
+                variants={itemSkills}
                 key={item.id}
                 className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-300 flex items-center justify-center-safe gap-10 "
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0px 0px 15px rgba(52, 211, 153, 0.4)", // Shadow hijau
+                  transition: { duration: 0.2 },
+                }}
               >
                 <img
                   src={item.gambar}
@@ -918,9 +1297,9 @@ export default function Beranda() {
                   </h3>
                   <p className="text-gray-400">{item.ket}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -935,9 +1314,9 @@ export default function Beranda() {
       {/* contact section */}
       <section
         id="contact"
-        className="relative px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-24"
+        className=" px-4 sm:px-6 lg:px-8 py-20 sm:py-24 md:py-28"
       >
-        <ContactForm />
+        <ContactForm socialLinks={socialLinks} />
       </section>
     </div>
   );
