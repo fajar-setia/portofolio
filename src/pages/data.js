@@ -15,6 +15,12 @@ import Database from "../assets/project_porto/Kost/Database.png";
 import dashboardAdminKost from "../assets/project_porto/Kost/halamanAdmin.png";
 import dashboardUserKost from "../assets/project_porto/Kost/halamanBerandaKost.png";
 
+//Barbershop
+import leandingPage from "../assets/project_porto/Barber/landingpage.png";
+import services from "../assets/project_porto/Barber/servicespage.png";
+import excuses from "../assets/project_porto/Barber/excuses.png";
+import client from "../assets/project_porto/Barber/clientpage.png";
+
 //tools
 import HTML from "../assets/tools/html.svg";
 import CSS from "../assets/tools/css.svg";
@@ -32,6 +38,7 @@ import NODE from "../assets/tools/node.svg";
 import SWAGGER from "../assets/tools/swagger.svg";
 import vite from "../assets/tools/vite.svg";
 import Net from "../assets/tools/dotNet.svg";
+import Vue from "../assets/tools/vuejs.svg";
 
 
 //untuk tampilan awal
@@ -179,5 +186,64 @@ export const initialData = [
             image:Net
           }
         ]
+    },
+    {
+        id: 3,
+        title: "Barbershop Landing Page",
+        description: "Landing page untuk barbershop yang menampilkan layanan, galeri, dan informasi kontak dengan desain menarik dan responsif.",
+        image: leandingPage,
+        githubBe: " ",
+        githubFe: "",
+        screenshots : [
+          {
+            id:1,
+            image:leandingPage,
+            description:"Ini adalah tampilan landing page dari project barbershop"
+          },
+          {
+            id:2,
+            image:services,
+            description:"Ini adalah tampilan services page dari project barbershop"
+          },
+          {
+            id:3,
+            image:excuses,
+            description:"Ini adalah tampilan excuses page dari project Barbershop"
+          },
+          {  
+            id:4,
+            image:client,
+            description:"Ini adalah tampilan client page dari project Barbershop"
+          }
+        ],
+        tools: [
+          {
+            id:1,
+            title: "Vuejs",
+            image:Vue,
+          },
+          {
+            id:2, 
+            title: "JavaScript",
+            image:JS
+          },
+          {
+            id:3,
+            title: "Vite",
+            image:vite
+          },
+          {
+            id:4,
+            title: "TailwinCSS",
+            image:Tailwind
+          },
+          {
+            id:5,
+            title: "Node Js",
+            image:NODE
+          }
+
+        ]
+          
     }
 ];
