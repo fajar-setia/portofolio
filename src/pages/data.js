@@ -21,6 +21,15 @@ import services from "../assets/project_porto/Barber/servicespage.png";
 import excuses from "../assets/project_porto/Barber/excuses.png";
 import client from "../assets/project_porto/Barber/clientpage.png";
 
+//re-design website PMB
+import leandingPagePMB from "../assets/project_porto/re-designPMB/tampilan-landingPage.png";
+import HomeAfterLogin from "../assets/project_porto/re-designPMB/tampilan-afterLoginHome.png";
+import RegistrationAfterLogin from "../assets/project_porto/re-designPMB/registrationAfterLogin.png";
+import ServiceMaba from "../assets/project_porto/re-designPMB/serviceMaba.png";
+import UploadBerkas from "../assets/project_porto/re-designPMB/uploadBerkas.png";
+import Mbkm from "../assets/project_porto/re-designPMB/mbkm.png";
+import HasilSeleksi from "../assets/project_porto/re-designPMB/resultSelection.png";
+
 //tools
 import HTML from "../assets/tools/html.svg";
 import CSS from "../assets/tools/css.svg";
@@ -39,6 +48,7 @@ import SWAGGER from "../assets/tools/swagger.svg";
 import vite from "../assets/tools/vite.svg";
 import Net from "../assets/tools/dotNet.svg";
 import Vue from "../assets/tools/vuejs.svg";
+import Typescript from "../assets/tools/typescript.svg";
 
 
 //untuk tampilan awal
@@ -245,5 +255,79 @@ export const initialData = [
 
         ]
           
+    },
+    {
+      id: 4,
+      title: "Re-design Website PMB",
+      description: "Re-design website PMB dengan tampilan modern dan responsif untuk meningkatkan pengalaman pengguna dalam mengakses informasi pendaftaran mahasiswa baru.",
+      image: leandingPagePMB,
+      githubBe: " ",
+      githubFe: " ",
+      screenshots : [
+        {
+          id:1,
+          image:leandingPagePMB,
+          description:"Ini adalah tampilan landing page dari project re-design website PMB, yang menampilkan informasi penting dan fitur utama untuk calon mahasiswa baru yang ingin mendaftar ke perguruan tinggi melalui sistem PMB. Tampilan ini dirancang dengan desain yang menarik dan responsif untuk memberikan pengalaman pengguna yang optimal saat mengakses informasi pendaftaran. "
+        },
+        {
+          id:2,
+          image:HomeAfterLogin,
+          description:"Ini adalah tampilan home after login dari project re-design website PMB yang menampilkan informasi penting dan fitur utama untuk pengguna yang sudah login."
+        },
+        {
+          id:3,
+          image:RegistrationAfterLogin,
+          description:"Ini adalah tampilan registration after login dari project re-design website PMB yang menyediakan formulir pendaftaran yang mudah digunakan dan responsif untuk calon mahasiswa baru."
+        },
+        {  
+          id:4,
+          image:ServiceMaba,
+          description:"Ini adalah tampilan service maba dari project re-design website PMB yang menampilkan berbagai layanan dan informasi penting untuk mahasiswa baru, seperti jadwal kegiatan, pengumuman, dan panduan pendaftaran."
+        },
+        {
+          id:5,
+          image:UploadBerkas,
+          description:"Ini adalah tampilan upload berkas dari project re-design website PMB yang memungkinkan mahasiswa baru untuk mengunggah dokumen yang diperlukan dalam proses pendaftaran."
+        },
+        {
+          id:6,
+          image:Mbkm,
+          description:"Ini adalah tampilan halaman MBKM dari project re-design website PMB yang menyediakan informasi dan layanan terkait program Merdeka Belajar Kampus Merdeka (MBKM) untuk mahasiswa baru, termasuk panduan, jadwal, dan pengumuman terkait program tersebut." 
+        },
+        {
+          id:7,
+          image:HasilSeleksi,
+          description:"Ini adalah tampilan halaman hasil seleksi dari project re-design website PMB yang menampilkan informasi tentang hasil seleksi calon mahasiswa baru. Halaman ini memberikan akses mudah bagi calon mahasiswa untuk melihat status pendaftaran mereka, termasuk apakah mereka diterima, ditolak, atau masuk dalam daftar tunggu, serta informasi terkait langkah selanjutnya yang perlu diambil."
+        }
+      ],
+      tools: [
+        {
+          id:1,
+          title: "React",
+          image:React,
+        },
+        {
+          id:2, 
+          title: "Typescript",
+          image:Typescript
+        },
+        {
+          id:3,
+          title: "Vite",
+          image:vite
+        },
+        {
+          id:4,
+          title: "TailwinCSS",
+          image:Tailwind
+        },
+        {
+          id:5,
+          title: "Node Js",
+          image:NODE
+        },
+
+
+      ] 
     }
 ];

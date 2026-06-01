@@ -1040,7 +1040,7 @@ export default function Beranda() {
                   initial={{ pathLength: 0, opacity: 0 }}
                   whileInView={{ pathLength: 1, opacity: 0.8 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 2.5, ease: "easeInOut" }}
+                  transition={{ duration: 4.5, ease: "easeInOut" }}
                   style={{
                     filter:
                       "drop-shadow(0 0 8px rgba(18, 173, 43, 0.6)) drop-shadow(0 0 16px rgba(18, 173, 43, 0.4)) drop-shadow(0 0 24px rgba(18, 173, 43, 0.2))",
