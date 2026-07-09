@@ -25,6 +25,7 @@ import {
   Tag,
   ExternalLink,
 } from "lucide-react";
+import StarField from "../component/bgComponent/StarField"; // Import StarField component
 
 //import cv dan foto hero image
 import CVfile from "../../public/cv/CV.pdf"; // Adjust the path as necessary
@@ -861,12 +862,12 @@ export default function Beranda() {
 
   return (
     <div className="min-h-screen bg-black overflow-hidden relative">
-      {/* Animated Background Elements */}
-      <div
-        className="absolute inset-0 opacity-25"
-        style={{
-          background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(34, 197, 94, 0.15), transparent 50%)`,
-        }}
+      {/* ⭐ BACKGROUND BARU: StarField */}
+      <StarField
+        mousePosition={mousePosition}
+        starCount={1000} // Jumlah bintang (100-300)
+        glowColor="34, 197, 94" // Warna glow mouse (hijau)
+        glowIntensity={0.15} // Intensitas glow
       />
 
       {/* Hero Section */}
@@ -1111,7 +1112,7 @@ export default function Beranda() {
                       {listIconPro
                         .filter(
                           (item) =>
-                            item.id === 1 || item.id === 5 || item.id === 6
+                            item.id === 1 || item.id === 5 || item.id === 6,
                         )
                         .map((item, idx) => (
                           <motion.span
