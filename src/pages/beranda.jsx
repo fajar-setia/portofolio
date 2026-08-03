@@ -28,9 +28,10 @@ import {
 import StarField from "../component/bgComponent/StarField"; // Import StarField component
 
 //import cv dan foto hero image
-import CVfile from "../../public/cv/CV.pdf"; // Adjust the path as necessary
 import CVPreview from "../assets/cv/fajar-setia-pambudi.png";
-import Foto from "../../public/foto_aku_3.jpg";
+import Foto from "../assets/logo/foto_aku_3.jpg";
+
+const CVfile = "/cv/CV.pdf";
 
 //import gambar
 import Tools1 from "../assets/tools/tools1.svg"; // Adjust the path as necessary
@@ -564,7 +565,7 @@ function Project({ socialLinks, Data = [] }) {
                             alt={shot.caption || shot.description}
                             className="w-full h-auto object-cover border-b border-zinc-700/70"
                             loading="lazy"
-                            whileHover={{ scale: 0 }}
+                            whileHover={{ scale: 1.05 }}
                           />
                           <p className="p-3 text-sm text-gray-400 text-center italic">
                             {shot.caption || shot.description}
