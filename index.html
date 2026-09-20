@@ -2,9 +2,31 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/portofolio/assets/logo_tab-CIY4dnLq.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/portofolio/assets/logo_tab-CIY4dnLq.png"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portofolio</title>
+    <script>
+      (function (l) {
+        if (l.search[1] === "/") {
+          var decoded = l.search
+            .slice(1)
+            .split("&")
+            .map(function (s) {
+              return s.replace(/~and~/g, "&");
+            })
+            .join("?");
+          window.history.replaceState(
+            null,
+            null,
+            l.pathname.slice(0, -1) + decoded + l.hash,
+          );
+        }
+      })(window.location);
+    </script>
     <script type="module" crossorigin src="/portofolio/assets/index-DVW5SIKT.js"></script>
     <link rel="modulepreload" crossorigin href="/portofolio/assets/rolldown-runtime-Cn8xt2Gj.js">
     <link rel="modulepreload" crossorigin href="/portofolio/assets/vendor-CF1ihNxI.js">
