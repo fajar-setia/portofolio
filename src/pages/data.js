@@ -461,3 +461,106 @@ export const initialData = [
     ]
   },
 ];
+
+export const tools = [
+  {
+    id: 1,
+    title: "HTML",
+    image: HTML,
+  },
+  {
+    id: 2,
+    title: "CSS",
+    image: CSS,
+  },
+  {
+    id: 3,
+    title: "JavaScript",
+    image: JS,
+  },
+  {
+    id: 4,
+    title: "PHP",
+    image: php,
+  },
+  {
+    id: 5,
+    title: "MYSQL",
+    image: MYSQL,
+  },
+  {
+    id: 6,
+    title: "BOOTSTRAP",
+    image: BOOTSTRAP,
+  },
+  {
+    id: 7,
+    title: "React",
+    image: React,
+  },
+  {
+    id: 8,
+    title: "TailwinCSS",
+    image: Tailwind,
+  },
+  {
+    id: 9,
+    title: "C Shap",
+    image: CShap,
+  },
+  {
+    id: 10,
+    title: "postgreSQL",
+    image: POSTGRES,
+  },
+  {
+    id: 11,
+    title: "git",
+    image: GIT,
+  },
+  {
+    id: 12,
+    title: "github",
+    image: GITHUB,
+  },
+  {
+    id: 13,
+    title: "Node Js",
+    image: NODE,
+  },
+  {
+    id: 14,
+    title: "Swagger",
+    image: SWAGGER,
+  },
+  {
+    id: 15,
+    title: "Vite",
+    image: vite,
+  },
+  {
+    id: 16,
+    title: ".Net",
+    image: Net,
+  },
+  {
+    id: 17,
+    title: "Vuejs",
+    image: Vue,
+  },
+  {
+    id: 18,
+    title: "Typescript",
+    image: Typescript,
+  },
+  {
+    id: 19,
+    title: "Laravel",
+    image: laravel,
+  },
+  {
+    id: 20,
+    title: "SQLite",
+    image: SQLITE,
+  }, 
+];

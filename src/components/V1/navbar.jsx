@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu, X, Home, User, Briefcase, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "../assets/logo/logo.png";
+import logo from "../../assets/logo/logo.png";
 
 // Simulasi logo (ganti dengan import logo asli Anda)
 const LogoPlaceholder = () => (

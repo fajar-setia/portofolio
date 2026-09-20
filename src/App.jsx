@@ -1,51 +1,28 @@
-import { use, useEffect, useState } from "react";
 import "./App.css";
-import Beranda from "./pages/beranda";
-import Navbar from "./component/navbar";
-import Footer from "./component/footer";
-import LoadingScreen from "./component/loadingScreen";
+
 import { Routes, Route } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
-import { div } from "framer-motion/client";
+
+import Beranda from "./pages/beranda";
+import HomePage from "./pages/v2/HomePage";
+import ProjectDetailPage from "./pages/v2/ProjectDetailPage";
+
+import LayoutV1 from "./layouts/layoutV1";
+import LayoutV2 from "./layouts/layoutV2";
 
 function App() {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 2000);
-    return () => clearTimeout(t);
-  }, []);
-
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-black via-black to-gray-900 text-white overflow-x-hidden">
-      <AnimatePresence mode="sync">
-        {loading ? (
-          <motion.div
-            key="loading"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <LoadingScreen />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="main"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<Beranda />} />
-            </Routes>
-            <Footer />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+    <Routes>
+      {/* Portfolio V1 */}
+      <Route element={<LayoutV1 />}>
+        <Route path="/" element={<Beranda />} />
+      </Route>
+
+      {/* Portfolio V2 */}
+      <Route element={<LayoutV2 />}>
+        <Route path="/v2" element={<HomePage />} />
+        <Route path="/v2/projects/:id" element={<ProjectDetailPage />} />
+      </Route>
+    </Routes>
   );
 }
 

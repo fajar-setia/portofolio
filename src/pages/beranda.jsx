@@ -25,7 +25,7 @@ import {
   Tag,
   ExternalLink,
 } from "lucide-react";
-import StarField from "../component/bgComponent/StarField"; // Import StarField component
+import StarField from "../components/V1/bgComponent/StarField"; // Import StarField component
 
 //import cv dan foto hero image
 import CVPreview from "../assets/cv/fajar-setia-pambudi.png";

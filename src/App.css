@@ -1,1 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
 @import "tailwindcss";
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/portofolio/fonts/Satoshi-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Kenyan Coffee";
+  src: url("/portofolio/fonts/Kenyan-Coffee-Rg.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Kenyan Coffee";
+  src: url("/portofolio/fonts/Kenyan-Coffee-Bd.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@theme {
+  --font-kenyan: "Kenyan Coffee", sans-serif;
+}
+
+html{
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+  scroll-padding-top: 3rem; /* Sesuaikan dengan tinggi header jika ada */
+}
+
+@layer base {
+  :root {
+    --bg-main: #F4F4F4;
+    --card-bg: #FFFFFF;
+    --text-primary: #1B1716;
+    --text-secondary: #666666;
+    --brand-primary: #A6171B;
+    --border-color: #E5E5E5;
+  }
+
+  /* Styling khusus saat Dark Mode aktif */
+  .dark {
+    --bg-main: #0F0E0E;
+    --card-bg: #1B1716;
+    --text-primary: #F4F4F4;
+    --text-secondary: #A0A0A0;
+    --brand-primary: #C81E23; /* Warna merah sedikit lebih cerah di dark mode */
+    --border-color: #2D2A29;
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: 'Satoshi', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* Font Kustom untuk Heading 1 besar */
+.font-heading {
+  font-family: 'Kenyan Coffee', sans-serif;
+  letter-spacing: 0.03em;
+}
+
+/* Animasi Putar Teks Melingkar (Badge) */
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 15s linear infinite;
+}
