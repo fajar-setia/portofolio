@@ -1,5 +1,4 @@
-import { useMemo } from "react";
-import { motion } from "framer-motion";
+import { memo, useEffect, useMemo, useRef } from "react";
 
 /**
  * Komponen StarField - Background bintang-bintang animasi (versi diperbaiki)
@@ -10,26 +9,55 @@ import { motion } from "framer-motion";
  *   kedip acak (bukan cuma naik-turun opacity halus), termasuk beberapa
  *   bintang yang tiba-tiba "flash" terang sekilas seperti bintang asli
  * - Bintang besar punya efek sparkle (garis silang tipis) seperti lensa kamera
- * - Tetap ringan: pakai CSS animation untuk bintang kecil (banyak jumlahnya)
- *   dan framer-motion hanya untuk bintang besar (jumlah sedikit)
+ * - Tetap ringan: memakai CSS animation untuk semua layer bintang
+ * - Glow pointer diperbarui langsung melalui CSS variables agar tidak memicu render React
+ * - Lapisan tetap berada di viewport agar kepadatan dan posisi glow konsisten saat scroll
  *
  * Cara pakai di Beranda.jsx:
  *   import StarField from "./components/StarField";
- *   <StarField mousePosition={mousePosition} starCount={220} />
+ *   <StarField starCount={280} />
  *
  * Props:
- * - mousePosition: { x: number, y: number }   → posisi mouse dari state
  * - starCount: number (default: 220)          → jumlah total bintang kecil+sedang
  * - glowColor: string (default: "34, 197, 94")→ warna glow (RGB)
  * - glowIntensity: number (default: 0.15)      → intensitas glow mouse
  */
 
 function StarField({
-  mousePosition = { x: 0, y: 0 },
   starCount = 220,
   glowColor = "34, 197, 94",
   glowIntensity = 0.15,
 }) {
+  const glowRef = useRef(null);
+
+  useEffect(() => {
+    const glow = glowRef.current;
+    if (!glow) return undefined;
+
+    let frameId = null;
+    let pointerX = 0;
+    let pointerY = 0;
+
+    // Update CSS variables directly instead of re-rendering the whole V1 tree.
+    const handleMouseMove = (event) => {
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+
+      if (frameId !== null) return;
+      frameId = window.requestAnimationFrame(() => {
+        glow.style.setProperty("--mouse-x", `${pointerX}px`);
+        glow.style.setProperty("--mouse-y", `${pointerY}px`);
+        frameId = null;
+      });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      if (frameId !== null) window.cancelAnimationFrame(frameId);
+    };
+  }, []);
   // Bintang kecil & sedang (dianimasikan via CSS keyframes, murah untuk jumlah banyak)
   const stars = useMemo(() => {
     return Array.from({ length: starCount }, (_, i) => {
@@ -58,9 +86,10 @@ function StarField({
     });
   }, [starCount]);
 
-  // Bintang besar dengan sparkle (jumlah sedikit, dianimasikan via framer-motion)
+  // Bintang besar dengan sparkle (jumlah sedikit, dianimasikan via CSS)
   const bigStars = useMemo(() => {
-    const count = Math.max(6, Math.round(starCount / 18));
+    // Keep the animated sparkle layer bounded without making the viewport feel empty.
+    const count = Math.min(18, Math.max(6, Math.round(starCount / 18)));
     return Array.from({ length: count }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
@@ -72,7 +101,7 @@ function StarField({
   }, [starCount]);
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
       {/* Keyframes untuk kedip bintang kecil/sedang/flash */}
       <style>{`
         @keyframes twinkleSoft {
@@ -84,6 +113,10 @@ function StarField({
           45% { opacity: calc(var(--base-op) * 0.3); transform: scale(0.8); }
           55% { opacity: 1; transform: scale(1.6); }
           65% { opacity: calc(var(--base-op) * 0.6); transform: scale(1); }
+        }
+        @keyframes bigStarPulse {
+          0%, 100% { opacity: 0.5; transform: scale(0.9); }
+          50% { opacity: 1; transform: scale(1.15); }
         }
       `}</style>
 
@@ -115,7 +148,7 @@ function StarField({
 
       {/* === LAYER 3: Bintang besar dengan sparkle silang === */}
       {bigStars.map((star) => (
-        <motion.div
+        <div
           key={`big-${star.id}`}
           className="absolute"
           style={{
@@ -125,16 +158,8 @@ function StarField({
             height: star.size * 6,
             marginLeft: -(star.size * 3),
             marginTop: -(star.size * 3),
-          }}
-          animate={{
-            opacity: [0.5, 1, 0.5],
-            scale: [0.9, 1.15, 0.9],
-          }}
-          transition={{
-            duration: star.duration,
-            delay: star.delay,
-            repeat: Infinity,
-            ease: "easeInOut",
+            animation: `bigStarPulse ${star.duration}s ease-in-out ${star.delay}s infinite`,
+            animationFillMode: "both",
           }}
         >
           {/* inti bintang */}
@@ -176,26 +201,44 @@ function StarField({
                 "linear-gradient(180deg, transparent, rgba(255,255,255,0.7), transparent)",
             }}
           />
-        </motion.div>
+        </div>
       ))}
 
       {/* === LAYER 4: Glow mengikuti mouse === */}
       <div
-        className="absolute inset-0 opacity-25"
-        style={{
-          background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(${glowColor}, ${glowIntensity}), transparent 40%)`,
-        }}
-      />
+        ref={glowRef}
+        className="absolute inset-0"
+        style={{ "--mouse-x": "0px", "--mouse-y": "0px" }}
+      >
+        <div
+          className="absolute opacity-25"
+          style={{
+            left: -480,
+            top: -480,
+            width: 960,
+            height: 960,
+            transform: "translate3d(var(--mouse-x), var(--mouse-y), 0)",
+            background: `radial-gradient(circle, rgba(${glowColor}, ${glowIntensity}) 0%, transparent 70%)`,
+            willChange: "transform",
+          }}
+        />
 
-      {/* === LAYER 5: Glow tambahan dekat mouse === */}
-      <div
-        className="absolute inset-0 opacity-40"
-        style={{
-          background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(${glowColor}, 0.05) 0%, transparent 25%)`,
-        }}
-      />
+        {/* === LAYER 5: Glow tambahan dekat mouse === */}
+        <div
+          className="absolute opacity-40"
+          style={{
+            left: -320,
+            top: -320,
+            width: 640,
+            height: 640,
+            transform: "translate3d(var(--mouse-x), var(--mouse-y), 0)",
+            background: `radial-gradient(circle, rgba(${glowColor}, 0.05) 0%, transparent 70%)`,
+            willChange: "transform",
+          }}
+        />
+      </div>
     </div>
   );
 }
 
-export default StarField;
+export default memo(StarField);

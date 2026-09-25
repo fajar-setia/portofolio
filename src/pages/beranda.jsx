@@ -1,7 +1,5 @@
-import { useState, useEffect, use } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css"; // Import AOS styles
-import { AnimatePresence, motion, scale } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useForm, ValidationError } from "@formspree/react";
 import { initialData } from "./data";
 import {
@@ -47,8 +45,6 @@ import GIT from "../assets/tools/git.svg";
 import GITHUB from "../assets/tools/github.svg";
 import NODE from "../assets/tools/node.svg";
 import BOOTSTRAP from "../assets/tools/bootstrap.svg";
-import { i, s } from "framer-motion/client";
-
 function CV({ showCV, setShowCV }) {
   if (!showCV) return null;
   return (
@@ -589,16 +585,7 @@ function Project({ socialLinks, Data = [] }) {
 }
 
 export default function Beranda() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showCV, setShowCV] = useState(false);
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
 
   //array about 2
   const listIconPro = [
@@ -865,8 +852,7 @@ export default function Beranda() {
     <div className="min-h-screen bg-black overflow-hidden relative">
       {/* ⭐ BACKGROUND BARU: StarField */}
       <StarField
-        mousePosition={mousePosition}
-        starCount={1000} // Jumlah bintang (100-300)
+        starCount={280} // Ringan untuk V1, tetap mempertahankan kepadatan visual
         glowColor="34, 197, 94" // Warna glow mouse (hijau)
         glowIntensity={0.15} // Intensitas glow
       />
